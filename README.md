@@ -1,6 +1,12 @@
 # Bitácoras de aprendizaje
 
-Ingresa a las actividades de tu bitácora: 
+## Tu sitio web personalizado
+
+[Este es tu sitio web](https://jfupb.github.io/interactivos1-2025-10-interactivos1-template2025-10)
+
+## Realización de actividades
+
+Ingresa a las actividades de tu bitácora y modifica el archivo student.md en la carpeta de cada actividad
 
 * [Unidad 1](src/content/activities/unit1)
 * [Unidad 2](src/content/activities/unit2)
