@@ -2,7 +2,7 @@
 
 ## Tu sitio web personalizado
 
-[Este es tu sitio web](https://jfupb.github.io/template2025-10)
+[Este es tu sitio web](https://jfupb.github.io/interactivos1-2025-10-interactivos1-template2025-10)
 
 ## Realización de actividades
 
