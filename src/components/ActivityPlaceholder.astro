@@ -1,0 +1,120 @@
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { s } from '@astrojs/starlight/expressive-code/hast';
+
+// Destructure props with default values
+const { id = '', unit = ''} = Astro.props;
+let activityContent, solutionContent, feedbackContent,studentContent;
+let hasError = false;
+let notStarted = false;
+
+
+try {
+  activityContent = await import(`../content/activities/${unit}/${id}/activity.md`);
+  studentContent = await import(`../content/activities/${unit}/${id}/student.md`);
+  solutionContent = await import(`../content/activities/${unit}/${id}/solution.md`);
+  feedbackContent = await import(`../content/activities/${unit}/${id}/feedback.md`);
+
+  const rawContent = await studentContent.rawContent?.() || '';
+  //console.log("Raw content from file:", rawContent);
+
+  if (!rawContent || rawContent.trim() === '') {
+    notStarted = true;
+    //console.log("Activity not started - empty content");
+  } 
+
+} catch (error) {
+//  console.error(`Error importing activity files for unit ${unit}, id ${id}:`, error);
+  console.error(`Error importing activity files for unit: ${unit}, id: ${id}:`);
+
+  hasError = true;
+}
+---
+
+{hasError ? (
+  <div class="activity-error">
+    <h3>{id.replace('activity','Actividad ')}</h3>
+    <p>⚠️ Esta actividad aún no está definida</p>
+    <p class="error-details">Archivos faltantes en: <code>content/activities/{unit}/{id}/</code></p>
+  </div>
+) : notStarted ? (
+
+<section class="activity">
+  <h3>{id.replace('activity','Actividad ')}</h3>
+  <div>
+    {activityContent && (<activityContent.Content />)}
+  </div>
+  <div class="activity-not-started">
+    <p>📝 Actividad pendiente por iniciar</p>
+    <p class="status-details">El archivo student.md está vacío</p>
+  </div>
+  </section>
+) : (
+<section class="activity">
+  <h3>{id.replace('activity','Actividad ')}</h3>
+  <div>
+    {activityContent && (<activityContent.Content />)}
+  </div>
+  <div class="activity-started">
+    <h4>🚀 Tu solución: </h4>
+    <Tabs>
+      {studentContent && (
+        <TabItem label="Estudiante" icon="document">
+          <div class="markdown-content">
+            <studentContent.Content />
+          </div>
+        </TabItem>
+      )}
+      {solutionContent && (
+        <TabItem label="Solución" icon="open-book">
+          <div class="markdown-content">
+            <solutionContent.Content />
+          </div>
+        </TabItem>
+      )}
+      {feedbackContent && (
+        <TabItem label="Retroalimentación" icon="comment">
+          <div class="markdown-content">
+            <feedbackContent.Content />
+          </div>
+        </TabItem>
+      )}
+    </Tabs>
+  </div>
+
+</section>
+)}
+
+<style>
+  .activity-error {
+    padding: 1rem;
+    border: 2px dashed var(--sl-color-red);
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+  }
+  .error-details {
+    font-size: 0.9em;
+    color: var(--sl-color-gray-5);
+  }
+  .error-details code {
+    background: var(--sl-color-gray-1);
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;
+  }
+  .activity-not-started {
+    padding: 1rem;
+    border: 2px dashed var(--sl-color-orange);
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+  }
+  .status-details {
+    font-size: 0.9em;
+    color: var(--sl-color-gray-5);
+  }
+  .activity-started {
+    padding: 1rem;
+    border: 2px dashed var(--sl-color-green);
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+  }
+</style>

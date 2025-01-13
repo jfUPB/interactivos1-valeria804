@@ -1,0 +1,22 @@
+---
+title: Curso
+description: Curso Template
+hero:
+  tagline: Semestre 2025-10
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import { Badge } from '@astrojs/starlight/components';
+import { FileTree } from '@astrojs/starlight/components';
+import UnidadStatus from '../../components/UnidadStatus.astro';
+import ActivityTree from '../../components/ActivityTree.astro';
+import AverageGrade from '../../components/AverageGrade.astro';
+import unidades from '../activities/unidades.json';
+import P5Simulation from '../../components/IntroSF1.astro';
+
+<P5Simulation />
+
+## ¿Cómo va mi trayecto de actividades y mis notas?
+
+<AverageGrade unidades={unidades} />
+<ActivityTree unidades={unidades} />

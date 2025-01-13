@@ -1,0 +1,69 @@
+---
+import { FileTree } from '@astrojs/starlight/components';
+import { Badge } from '@astrojs/starlight/components';
+import UnidadStatus from './UnidadStatus.astro';
+import UnitGrade from './UnidadGrade.astro';
+
+interface Activity {
+  nombre: string;
+  estado: string;  
+  fase: string;
+}
+
+interface Unidad {
+  nombre: string;
+  actividades: Activity[];
+}
+
+interface Props {
+  unidades: Unidad[];
+}
+
+const { unidades } = Astro.props;
+
+const phases = ['set', 'seek', 'apply', 'reflect'];
+---
+
+<FileTree>
+<ul>
+    {unidades.map((unidad, index) => (
+        <li>
+          <span>
+            {unidad.nombre} <UnidadStatus actividades={unidad.actividades} />
+            - Nota: <UnitGrade actividades={unidad.actividades} />
+            </span>
+          <ul>
+            {phases.map(phase => (
+              <li class="folder" data-depth="2">
+                <span>{phase.toUpperCase()}</span>
+                <ul>
+                  {unidad.actividades
+                    .filter(act => act.fase === phase)
+                    .map((act, actIndex) => (
+                      <li class="file" data-depth="3">
+                        <span>{act.nombre}</span>
+                        <Badge 
+                          variant={
+                            act.estado === "Completada" ? "success" : 
+                            act.estado === "En progreso" ? "caution" :
+                            act.estado === "No iniciada" ? "note" : 
+                            "danger"
+                          }
+                          text={["Completada", "En progreso", "No iniciada"].includes(act.estado) ? act.estado : "Mal marcada"}
+                        />
+                      </li>
+                    ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+</ul>
+</FileTree>
+
+<style>
+    ul {
+    list-style-type: '- ';
+}
+</style>

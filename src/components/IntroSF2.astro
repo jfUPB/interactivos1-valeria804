@@ -1,0 +1,150 @@
+---
+---
+
+<div id="sketch-container"></div>
+
+<script>
+import p5 from 'p5';
+
+new p5((p) => {
+  let nodes: Node[] = [];
+  let numNodes = 6;
+  let globalTime = 0;
+
+  class Node {
+    pos: p5.Vector;
+    radius: number;
+    state: number;
+    neighbors: Node[];
+    messages: { pos: p5.Vector; target: Node; progress: number }[];
+
+    constructor(x: number, y: number) {
+      this.pos = p.createVector(x, y);
+      this.radius = 20;
+      this.state = 0; // Idle state
+      this.neighbors = [];
+      this.messages = [];
+    }
+
+    connect(node:Node) {
+      this.neighbors.push(node);
+    }
+
+    sendMessage(target:Node) {
+      this.messages.push({
+        pos: this.pos.copy(),
+        target: target,
+        progress: 0
+      });
+    }
+
+    receiveMessage() {
+      this.state = 1; // Active state
+      setTimeout(() => {
+        this.state = 0;
+      }, 1000);
+    }
+
+    update() {
+      // Process messages
+      for (let i = this.messages.length - 1; i >= 0; i--) {
+        let message = this.messages[i];
+        message.progress += 0.02;
+
+        if (message.progress >= 1) {
+          message.target.receiveMessage();
+          this.messages.splice(i, 1);
+        }
+      }
+    }
+
+    draw() {
+      // Draw connections
+      for (let neighbor of this.neighbors) {
+        p.stroke(100, 200, 255, 100);
+        p.line(this.pos.x, this.pos.y, neighbor.pos.x, neighbor.pos.y);
+      }
+
+      // Draw node
+      p.noStroke();
+      p.fill(this.state === 0 ? 200 : 255, 50, 50);
+      p.ellipse(this.pos.x, this.pos.y, this.radius * 2);
+
+      // Draw messages
+      for (let message of this.messages) {
+        let interpolatedPos = p5.Vector.lerp(
+          message.pos,
+          message.target.pos,
+          message.progress
+        );
+        p.fill(255, 204, 0);
+        p.noStroke();
+        p.ellipse(interpolatedPos.x, interpolatedPos.y, 8);
+      }
+    }
+  }
+
+  p.setup = () => {
+    const container = document.getElementById('sketch-container');
+    const width = container?.offsetWidth || 400;
+    const height = container?.offsetHeight || 400;
+    p.createCanvas(width, height).parent('sketch-container');
+
+    // Initialize nodes in a circular layout
+    for (let i = 0; i < numNodes; i++) {
+      let angle = (p.TWO_PI / numNodes) * i;
+      let x = p.width / 2 + p.cos(angle) * 150;
+      let y = p.height / 2 + p.sin(angle) * 150;
+      nodes.push(new Node(x, y));
+    }
+
+    // Connect nodes to simulate communication
+    for (let i = 0; i < nodes.length; i++) {
+      let next = (i + 1) % nodes.length;
+      nodes[i].connect(nodes[next]);
+    }
+  };
+
+  p.draw = () => {
+    p.background(30);
+    globalTime += 0.01;
+
+    for (let node of nodes) {
+      node.update();
+      node.draw();
+    }
+
+    // Periodically send messages
+    if (Math.floor(globalTime * 100) % 200 === 0) {
+      let sender = p.random(nodes);
+      let receiver = p.random(nodes.filter((n) => n !== sender));
+      sender.sendMessage(receiver);
+    }
+  };
+
+  p.mousePressed = () => {
+    // Send a manual message between random nodes
+    let sender = p.random(nodes);
+    let receiver = p.random(nodes.filter((n) => n !== sender));
+    sender.sendMessage(receiver);
+  };
+
+  p.windowResized = () => {
+    const container = document.getElementById('sketch-container');
+    const width = container?.offsetWidth || 400;
+    const height = container?.offsetHeight || 400;
+    p.resizeCanvas(width, height);
+  };
+});
+</script>
+
+<style>
+  #sketch-container {
+    width: 400px;
+    height: 400px;
+    margin: 2rem auto;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+</style>

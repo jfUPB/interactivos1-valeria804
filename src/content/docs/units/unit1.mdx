@@ -1,0 +1,62 @@
+---
+title: Unidad 1
+unitId: unit1
+---
+
+import ActivityPlaceholder from '../../../components/ActivityPlaceholder.astro';
+import unidades from '../../activities/unidades.json';
+
+export const unit = unidades.find(u => u.nombre === frontmatter.title);
+
+
+## ¿Qué aprenderás en esta unidad?
+
+{unit.actividades
+  .filter(act => act.fase === "set")
+  .map(act => (
+    <ActivityPlaceholder 
+      id={act.nombre.replace('actividad','activity').replace('.md', '')} 
+      unit={frontmatter.unitId} 
+    />
+  ))
+}
+
+## Investigación
+
+{unit.actividades
+  .filter(act => act.fase === "seek")
+  .map(act => (
+    <ActivityPlaceholder 
+      id={act.nombre.replace('actividad','activity').replace('.md', '')} 
+      unit={frontmatter.unitId}
+    />
+  ))
+}
+
+## Aplicación
+
+{unit.actividades
+  .filter(act => act.fase === "apply")
+  .map(act => (
+    <ActivityPlaceholder 
+      id={act.nombre.replace('actividad','activity').replace('.md', '')} 
+      unit={frontmatter.unitId} 
+    />
+  ))
+}
+
+## Consolidación y matacognión
+
+{unit.actividades
+  .filter(act => act.fase === "reflect")
+  .map(act => (
+    <ActivityPlaceholder 
+      id={act.nombre.replace('actividad','activity').replace('.md', '')} 
+      unit={frontmatter.unitId} 
+    />
+  ))
+}
+
+
+
+

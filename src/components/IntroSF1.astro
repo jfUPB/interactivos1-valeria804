@@ -1,0 +1,119 @@
+---
+---
+
+<div id="sketch-container"></div>
+
+<script>
+import p5 from 'p5';
+
+new p5((p) => {
+  let nodes: Node[] = [];
+  let connections:{ source: Node; target: Node; }[] = [];
+  let numNodes = 30;
+
+  class Node {
+    pos: p5.Vector;
+    messages: { pos: p5.Vector; target: Node; progress: number }[];
+    constructor(x:number, y:number) {
+      this.pos = p.createVector(x, y);
+      this.messages = [];
+    }
+
+    sendMessage(target:Node) {
+      const message = {
+        pos: this.pos.copy(),
+        target: target,
+        progress: 0
+      };
+      this.messages.push(message);
+    }
+
+    update() {
+      for (let i = this.messages.length - 1; i >= 0; i--) {
+        let message = this.messages[i];
+        message.progress += 0.02;
+        if (message.progress >= 1) {
+          this.messages.splice(i, 1);
+        }
+      }
+    }
+
+    draw() {
+      p.fill(255);
+      p.noStroke();
+      p.ellipse(this.pos.x, this.pos.y, 10);
+
+      for (let message of this.messages) {
+        let interpolatedPos = p5.Vector.lerp(message.pos, message.target.pos, message.progress);
+        p.stroke(255, 204, 0);
+        p.strokeWeight(4);
+        p.point(interpolatedPos.x, interpolatedPos.y);
+      }
+    }
+  }
+
+  p.setup = () => {
+    const container = document.getElementById('sketch-container');
+    const width = container?.offsetWidth || 400;
+    const height = container?.offsetHeight || 400;
+    p.createCanvas(width, height).parent('sketch-container');
+
+    // Initialize nodes
+    for (let i = 0; i < numNodes; i++) {
+      nodes.push(new Node(p.random(width), p.random(height)));
+    }
+
+    // Create random connections
+    for (let i = 0; i < nodes.length; i++) {
+      let target = p.random(nodes);
+      if (target !== nodes[i]) {
+        connections.push({ source: nodes[i], target: target });
+      }
+    }
+  };
+
+  p.draw = () => {
+    p.background(30);
+
+    // Draw connections
+    p.stroke(100);
+    p.strokeWeight(1);
+    for (let conn of connections) {
+      p.line(conn.source.pos.x, conn.source.pos.y, conn.target.pos.x, conn.target.pos.y);
+    }
+
+    // Update and draw nodes
+    for (let node of nodes) {
+      node.update();
+      node.draw();
+    }
+  };
+
+  p.mousePressed = () => {
+    // Send a random message when clicked
+    let source = p.random(nodes);
+    let target = p.random(nodes);
+    if (source !== target) {
+      source.sendMessage(target);
+    }
+  };
+
+  p.windowResized = () => {
+    const container = document.getElementById('sketch-container');
+    const width = container?.offsetWidth || 400;
+    const height = container?.offsetHeight || 400;
+    p.resizeCanvas(width, height);
+  };
+});
+</script>
+
+<style>
+  #sketch-container {
+    width: 400px;
+    height: 400px;
+    margin: 2rem auto;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+</style>

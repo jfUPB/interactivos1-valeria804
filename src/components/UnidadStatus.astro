@@ -1,0 +1,39 @@
+---
+import { Badge } from "@astrojs/starlight/components";
+
+interface Activity {
+    estado: string;
+}
+
+export interface Props {
+    actividades: Activity[];
+}
+
+const { actividades = [] } = Astro.props;
+
+const calcularEstadoUnidad = (actividades: Activity[],): {
+        estado: string;
+        variante: "note" | "danger" | "success" | "caution" | "tip" | "default";
+    } => {
+    
+            if (!actividades || actividades.length === 0) {
+                return { estado: "Sin actividades", variante: "danger" };
+            }
+
+            const total = actividades.length;
+            const completadas = actividades.filter(
+                (a) => a.estado === "Completada",
+            ).length;
+
+            if (completadas === total) {
+                return { estado: "Completada", variante: "success" };
+            } else if (completadas > 0) {
+                return { estado: "En progreso", variante: "caution" };
+            }
+            return { estado: "No iniciada", variante: "note" };
+        };
+
+const { estado, variante } = calcularEstadoUnidad(actividades);
+---
+
+<Badge variant={variante} text={estado} style={{ fontStyle: "italic" }} />

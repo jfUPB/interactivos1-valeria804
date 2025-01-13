@@ -1,0 +1,19 @@
+---
+import { Badge } from "@astrojs/starlight/components";
+import { calculateUnitGrade } from '../utils/unitGradeCalculator';
+
+interface Activity {
+  nombre: string;
+  estado: string;
+  fase: string;
+}
+
+interface Props {
+  actividades: Activity[];
+}
+
+const { actividades } = Astro.props;
+const grade = calculateUnitGrade(actividades);
+---
+
+<Badge variant="tip" text={grade.toFixed(2)} style={{ fontStyle: "italic" }} />

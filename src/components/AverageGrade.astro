@@ -1,0 +1,41 @@
+---
+import { calculateUnitGrade } from '../utils/unitGradeCalculator';
+
+interface Props {
+  unidades: {
+    nombre: string;
+    actividades: Array<{
+      nombre: string;
+      estado: string;
+      fase: string;
+    }>;
+  }[];
+}
+
+const { unidades } = Astro.props;
+const averageGrade = unidades.length > 0 
+  ? unidades.reduce((sum, unit) => sum + calculateUnitGrade(unit.actividades), 0) / unidades.length
+  : 0;
+---
+
+<h4 class="average-grade">
+    Promedio del curso: 
+    <span class="average-value">
+        {averageGrade.toFixed(2)}
+    </span> 
+</h4>
+
+<style>
+.average-grade {
+    font-weight: bold;
+    color: var(--sl-color-text-accent);
+}
+
+.average-value {
+    background-color: steelblue;
+    color: white; /* Cambia el color del texto si es necesario */
+    padding: 5px 10px;
+    border-radius: 5px; /* Opcional, para redondear los bordes */
+    font-weight: bold; /* Opcional, para destacar el texto */
+}
+</style>

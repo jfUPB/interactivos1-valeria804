@@ -1,0 +1,82 @@
+---
+---
+
+<div id="sketch-container"></div>
+
+<script>
+import p5 from 'p5';
+
+new p5((p) => {
+  let canvas;
+
+  p.setup = () => {
+    const container = document.getElementById('sketch-container');
+    const width = container?.offsetWidth;
+    const height = container?.offsetHeight;
+    canvas = p.createCanvas(width, height);
+    canvas.parent('sketch-container');
+    p.noLoop();
+  };
+
+  p.draw = () => {
+    p.background(10); 
+    p.stroke(255);
+    p.noFill(); 
+
+    let rows = 10; 
+    let cols = 10; 
+    let cellSize = p.width / cols;
+
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        let x = j * cellSize + cellSize / 2;
+        let y = i * cellSize + cellSize / 2;
+        let size = p.random(cellSize * 0.5, cellSize * 0.9);
+        let choice = Math.floor(p.random(3));
+
+        if (choice === 0) {
+          p.ellipse(x, y, size, size); 
+        } else if (choice === 1) {
+          p.rect(x - size / 2, y - size / 2, size, size); 
+        } else {
+          p.line(x - size / 2, y - size / 2, x + size / 2, y + size / 2); 
+          p.line(x - size / 2, y + size / 2, x + size / 2, y - size / 2);
+        }
+        p.strokeWeight(4);
+        p.point(x, y);
+        p.strokeWeight(1);
+      }
+    }
+
+    p.stroke(0, 255, 0);
+    p.noFill();
+
+    p.mousePressed = () => {
+      p.redraw();
+    };
+
+    p.windowResized = () => {
+    const container = document.getElementById('sketch-container');
+    const width = container?.offsetWidth;
+    const height = container?.offsetHeight;
+    p.resizeCanvas(width, height);
+    p.redraw();
+  };
+
+
+
+  };
+});
+
+</script>
+
+<style>
+    #sketch-container {
+      width: 400px;
+      height: 400px;
+      margin: 2rem auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+  </style>

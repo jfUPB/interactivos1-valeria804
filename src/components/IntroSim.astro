@@ -1,0 +1,86 @@
+---
+---
+
+<div id="sketch-container"></div>
+
+<script>
+import p5 from 'p5';
+
+new p5((p) => {
+  let canvas;
+
+  p.setup = () => {
+    const container = document.getElementById('sketch-container');
+    const width = container?.offsetWidth;
+    const height = container?.offsetHeight;
+    canvas = p.createCanvas(width, height);
+    canvas.parent('sketch-container');
+    p.noLoop(); // Redibujaremos solo cuando sea necesario
+  };
+
+  p.draw = () => {
+    p.background(20);
+    p.noFill();
+
+    const cols = 10;
+    const rows = 10;
+    const cellSize = p.width / cols;
+
+    for (let i = 0; i < cols; i++) {
+      for (let j = 0; j < rows; j++) {
+        const x = i * cellSize + cellSize / 2;
+        const y = j * cellSize + cellSize / 2;
+
+        const size = p.random(cellSize * 0.4, cellSize * 0.9);
+        const rotation = p.random(p.TWO_PI);
+
+        p.push();
+        p.translate(x, y);
+        p.rotate(rotation);
+
+        const shapeType = Math.floor(p.random(3));
+        if (shapeType === 0) {
+          // Círculo
+          p.stroke(p.random(100, 255), p.random(100, 255), p.random(100, 255));
+          p.ellipse(0, 0, size, size);
+        } else if (shapeType === 1) {
+          // Rectángulo
+          p.stroke(p.random(100, 255), p.random(100, 255), p.random(100, 255));
+          p.rect(-size / 2, -size / 2, size, size);
+        } else {
+          // Líneas cruzadas
+          p.stroke(p.random(100, 255), p.random(100, 255), p.random(100, 255));
+          p.line(-size / 2, -size / 2, size / 2, size / 2);
+          p.line(-size / 2, size / 2, size / 2, -size / 2);
+        }
+        p.pop();
+      }
+    }
+  };
+
+  // Redibuja al tocar/clic
+  p.mousePressed = () => {
+    p.redraw();
+  };
+
+  // Redimensiona el canvas si cambia el tamaño del contenedor
+  p.windowResized = () => {
+    const container = document.getElementById('sketch-container');
+    const width = container?.offsetWidth;
+    const height = container?.offsetHeight;
+    p.resizeCanvas(width, height);
+    p.redraw();
+  };
+});
+</script>
+
+<style>
+  #sketch-container {
+    width: 400px;
+    height: 400px;
+    margin: 2rem auto;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+</style>
