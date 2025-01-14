@@ -6,7 +6,7 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'Sistemas Físicos Interactivos 1',
+			title: 'Curso',
 			defaultLocale: 'root',
 			locales: {
 			  root: { label: 'Español', lang: 'es-ES' },
@@ -46,5 +46,5 @@ export default defineConfig({
 		}),
 	],
 	site: 'https://jfUPB.github.io',
-	base: 'interactivos1-2025-10-interactivos1-template2025-10',
+	base: 'template2025-10',
 });
