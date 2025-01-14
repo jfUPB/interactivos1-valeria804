@@ -47,24 +47,10 @@ cómo van tus notas y, en la unidad correspondiente, la solución de la activida
 También puedes generar manualmente tu sitio web así: 
 
 * Ingresa al menú Actions de tu repositorio
-  
-![image](https://github.com/user-attachments/assets/ce0e0525-0d63-4245-9d8f-119daa0e569d)
-
 * Selecciona Actualiza tu sitio web
-
-![image](https://github.com/user-attachments/assets/4724e416-0998-4e76-b234-8ebe5e655d5b)
-
 * Despliega el menú Run workflow y presiona el botón verde: "Run Workflow":
-
-![image](https://github.com/user-attachments/assets/93b2f074-4e60-4376-a58a-d36af2fd5fd4)
-
-* Refresca la página. Verás que aparece algo así:
-
-![image](https://github.com/user-attachments/assets/062981b5-7f9e-4292-965e-c348ae708063)
-
-* Presiona **Actualiza tu sitio web**. Espera un minuto.  Refresca de nuevo. Verás algo así:
-
-![image](https://github.com/user-attachments/assets/7086ece8-c7f1-42c9-83de-295917def5c1)
-
+* Refresca la página.
+* Presiona **Actualiza tu sitio web**. Espera a que el proceso de build y deploy terminen.
+  
 Si presionas la URL que aparece debajo de **deploy** podrás abrir tu sitio web. NO OLVIDES que esta URL también la tienes disponible en la portada (README.md) de tu 
 repositorio.
