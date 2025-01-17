@@ -8,8 +8,23 @@ import unidades from '../../activities/unidades.json';
 
 export const unit = unidades.find(u => u.nombre === frontmatter.title);
 
+## Introducción
+
+El objetivo de la esta unidad es puedas responder según tus intereses y perfil 
+profesional esta pregunta: **¿Este curso para qué me sirve?**
+
+Esta unidad tiene un total de 16 actividades. Se estima un tiempo de 30 minutos 
+por actividad; sin embargo, dependiendo de tu ritmo de trabajo, dificultades, 
+saberes previos o nivel de interés algunas actividades pueden tomarte un poco 
+más de tiempo.
 
 ## ¿Qué aprenderás en esta unidad?
+
+El objetivo de esta fase (SET) es establecer la relevancia del curso Sistemas 
+Físicos Interactivos 1 en el contexto del programa de Ingeniería en Diseño de 
+Entretenimiento Digital y tus aspiraciones profesionales. Despertar tu  
+curiosidad y motivación intrínseca.
+
 
 {unit.actividades
   .filter(act => act.fase === "set")
@@ -23,6 +38,10 @@ export const unit = unidades.find(u => u.nombre === frontmatter.title);
 
 ## Investigación
 
+El objetivo de esta fase (SEEK) es indagar y comprender los fundamentos del 
+**Diseño Generativo** y su relevancia en el contexto del entretenimiento digital, 
+específicamente en relación con los sistemas físicos interactivos.
+
 {unit.actividades
   .filter(act => act.fase === "seek")
   .map(act => (
@@ -35,6 +54,10 @@ export const unit = unidades.find(u => u.nombre === frontmatter.title);
 
 ## Aplicación
 
+El objetivo de esta fase (APPLY) es aplicar los conceptos de Diseño Generativo 
+y los conocimientos básicos de programación en p5.js y micro:bit para crear 
+prototipos sencillos de sistemas interactivos.
+
 {unit.actividades
   .filter(act => act.fase === "apply")
   .map(act => (
@@ -46,6 +69,10 @@ export const unit = unidades.find(u => u.nombre === frontmatter.title);
 }
 
 ## Consolidación y matacognión
+
+El objetivo de esta fase (REFLECT) es promover la metacognición, la autoevaluación y la 
+conexión del aprendizaje con las metas personales y profesionales. Consolidar el 
+conocimiento adquirido sobre Diseño Generativo y su aplicación en sistemas físicos interactivos.
 
 {unit.actividades
   .filter(act => act.fase === "reflect")
