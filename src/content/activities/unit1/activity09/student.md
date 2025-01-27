@@ -41,6 +41,8 @@ function draw() {
 el codigo genera patrones visuales que se modifican con el tiempo en base a funciones random() sen() y cos(), visualmente muestra lineas aleatorias que cambian de tamaño y posicion, a demas de 10 circulos 
 que giran al rededor del centro, mientras van cambiando su tamaño y color
 
+![image](../../../../assets/circulos.png)
+
 
 
 
