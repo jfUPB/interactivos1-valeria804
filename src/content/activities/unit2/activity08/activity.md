@@ -24,9 +24,8 @@ class Pixel:
             display.set_pixel(self.pixelX,self.pixelY,self.pixelState)
 
         elif self.state == "WaitTimeout":
-            currentTime = utime.ticks_ms()
-            if utime.ticks_diff(currentTime,self.startTime) > self.interval:
-                self.startTime = currentTime
+            if utime.ticks_diff(utime.ticks_ms(),self.startTime) > self.interval:
+                self.startTime = utime.ticks_ms()
                 if self.pixelState == 9:
                     self.pixelState = 0
                 else:
@@ -42,11 +41,11 @@ while True:
 
 ```
 
-- Describe detalladamente cómo funciona este ejemplo. Usa chatGPT para indagar y profundizar en todas las dudas que 
-puedas tener.
-- ¿Puedes identificar algunos estados?
-- Del contexto del ejemplo ¿Qué son los estados?
-- Del contexto del ejemplo ¿Qué son los eventos?
-- Del contexto del ejemplo ¿Qué son las acciones?
+- Describe detalladamente cómo funciona este ejemplo. Usa chatGPT para indagar y profundizar en todas las dudas que puedas tener.
+- Del contexto del programa ¿Puedes identificar algún estado? Los estados son momentos del programa en los cuales este espera a que ocurra algo.
+- Del contexto del programa ¿Puedes identificar algún evento? Los eventos son aquellas cosas 
+por las que el programa pregunta durante un estado.
+- Del contexto del programa ¿Puedes identificar alguna acción? Las acciones son aquellas cosas 
+que el programa ejecuta en respuesta a la ocurrencia de un evento.
 
 **Entrega**: respuesta a las preguntas.
