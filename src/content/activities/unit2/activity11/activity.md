@@ -1,12 +1,10 @@
 #### Diseño de la Lógica de una Bomba Temporizada
 
-**Enunciado**: diseña la máquina de estados para el reto de la bomba temporizada, incluyendo la gestión de los botones, el temporizador y la comunicación serial.
+**Enunciado**: diseña la máquina de estados para el reto de la bomba temporizada, incluyendo la gestión de los botones y la temporización.
 
 **Problema**:
 
-En un escape room se requiere construir una aplicación para controlar una bomba temporizada. La siguiente figura ilustra la interfaz de la bomba. El circuito de control de la bomba está compuesto por tres sensores, denominados UP (botón A), DOWN (botón B) y ARMED (el gesto de shake de acelerómetro). Tiene dos actuadores o dispositivos de salida que serán un display (la pantalla de LEDs) y un speaker.
-
-![State Machine Model](../../../../assets/bomb.webp)
+En un escape room se requiere construir una aplicación para controlar una bomba temporizada. El circuito de control de la bomba está compuesto por cuatro sensores, denominados UP (botón A), DOWN (botón B), touch (botón de touch) y ARMED (el gesto de shake de acelerómetro). Tiene dos actuadores o dispositivos de salida que serán un display (la pantalla de LEDs) y un speaker.
 
 **El controlador funciona así**:
 
