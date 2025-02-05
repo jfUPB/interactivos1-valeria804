@@ -27,8 +27,7 @@ como el micropython controla el microbit
 
    ```py
    nombre = input("¿Cómo te llamas? ")
-print(f"Hola, {nombre}!")
-
+   print(f"Hola, {nombre}!")
    ```
 2. Utilice was_pressed() para comprobar si se presionó un botón desde que se encendió el micro:bit o desde la última vez que se utilizó was_pressed().
 
