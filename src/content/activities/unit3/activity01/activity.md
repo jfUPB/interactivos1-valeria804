@@ -1,12 +1,12 @@
 #### Volvamos a la actividad del semáforo
 
-Esta actividad puede tomarte una hora, o un poco más. Todo depende 
-de cómo estén tus conocimientos y habilidades previas, vale?
+**ANTES DE COMENZAR** a trabajar en esta actividad, por favor, lee completamente
+el enunciado.
 
 **Enunciado**: en la actividad anterior construiste un semáforo con el micro:bit. Ahora te pediré 
 que hagas una modificación. Esta vez construirás tres semáforos concurrente en el micro:bit. 
 
-Cada uno de los semáforos tendrá un tiempos en rojo, amarillo y verde diferentes. Recuerda 
+Cada uno de los semáforos tendrá unos tiempos en rojo, amarillo y verde diferentes. Recuerda 
 que el micro:bit tiene un solo display de 5x5 leds. Además, todos los leds son de color rojo. 
 Así que tendrás que ser creativo para representar los colores amarillo y verde.
 
