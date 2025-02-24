@@ -213,3 +213,94 @@ Decodificación: Ajusta la decodificación en el micro:bit según sea necesario 
 Instrucciones en Pantalla: El código incluye instrucciones básicas en el lienzo para guiar al usuario.
 
 Este código proporciona una base sólida para enviar caracteres desde p5.js a tu micro:bit y mostrar los datos recibidos en la pantalla LED. Ajusta el código del micro:bit para que coincida con la lógica de envío de caracteres desde p5.js
+
+
+## proxima clase
+
+```
+let port;
+let connectBtn;
+let inputField;
+let receivedData = '';
+
+function setup() {
+    createCanvas(400, 400);
+    background(220);
+
+    // Configuración del puerto serial
+    port = createSerial();
+
+    // Botón de conexión
+    connectBtn = createButton('Conectar a micro:bit');
+    connectBtn.position(20, 20);
+    connectBtn.mousePressed(connectBtnClick);
+
+    // Campo de entrada de texto
+    inputField = createInput('');
+    inputField.position(20, 60);
+    inputField.size(150);
+    inputField.input(sendText); // Enviar texto al escribir
+
+    // Mostrar instrucciones
+    text('Escribe un carácter y presiona Enter', 20, 100);
+}
+
+function draw() {
+    background(220);
+
+    // Mostrar los datos recibidos
+    textSize(20);
+    text("Recibido: " + receivedData, 20, 150);
+
+    if (!port.opened()) {
+        connectBtn.html('Conectar a micro:bit');
+    } else {
+        connectBtn.html('Desconectar');
+    }
+}
+
+function connectBtnClick() {
+    if (!port.opened()) {
+        port.open('MicroPython', 115200);
+    } else {
+        port.close();
+    }
+}
+
+function sendText() {
+    let textToSend = inputField.value();
+    if (textToSend.length > 0) {
+        port.write(textToSend.charAt(0)); // Envía solo el primer carácter
+        inputField.value(''); // Limpia el campo de entrada
+    }
+}
+
+function serialEvent() {
+    // Lee los datos del puerto serial
+    let inString = port.readStringUntil('\r\n');
+
+    // Si hay una cadena válida, actualiza los datos recibidos
+    if (inString) {
+        receivedData = inString.trim();
+        console.log("Datos recibidos: " + receivedData);
+    }
+}
+```
+
+
+microbit
+```
+from microbit import *
+
+# Inicializa la comunicación UART con una velocidad de 115200 baudios
+uart.init(baudrate=115200)
+
+while True:
+    # Verifica si hay datos disponibles en el puerto UART
+    if uart.any():
+        data = uart.read(1)  # Lee un byte de datos
+        if data:
+            # Convierte el byte recibido a carácter y lo muestra en la pantalla LED
+            display.show(str(data.decode('utf-8')))
+
+```
