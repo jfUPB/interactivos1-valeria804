@@ -8,8 +8,19 @@ import unidades from '../../activities/unidades.json';
 
 export const unit = unidades.find(u => u.nombre === frontmatter.title);
 
+## Introducción
+
+En esta unidad vas a aprender cómo enviar líneas de texto desde el micro:bit a 
+al sketch en p5.js. Dichas líneas de textos tendrán información de varios 
+sensores del micro:bit separados por comas y terminados por un salto de línea. 
+A esto se le conoce como comunicación serial mediante el protocolo ASCII. 
+Vas a practicar de nuevo la técnica de programación de máquinas de estados.
 
 ## ¿Qué aprenderás en esta unidad?
+
+Vas a enviar información desde el micro:bit a un sketch en p5.js. Para ello, 
+usarás protocolos de comunicación ASCII. Antes de hacerlo, vas a explorar 
+algunas aplicaciones interactivas hechas con p5.js que te servirán de inspiración.
 
 {unit.actividades
   .filter(act => act.fase === "set")
@@ -23,6 +34,9 @@ export const unit = unidades.find(u => u.nombre === frontmatter.title);
 
 ## Investigación
 
+En esta fase, vas a analizar un caso de estudio que te servirá de base 
+para resolver el problema que te plantearé en la siguiente fase.
+
 {unit.actividades
   .filter(act => act.fase === "seek")
   .map(act => (
@@ -35,6 +49,10 @@ export const unit = unidades.find(u => u.nombre === frontmatter.title);
 
 ## Aplicación
 
+Ahora que conoces los conceptos y técnicas fundamentales para lograr 
+una comunicación serial entre el micro:bit y un sketch en p5.js, vas a 
+aplicarlos en un proyecto.
+
 {unit.actividades
   .filter(act => act.fase === "apply")
   .map(act => (
@@ -46,6 +64,9 @@ export const unit = unidades.find(u => u.nombre === frontmatter.title);
 }
 
 ## Consolidación y metacognición
+
+En esta última fase, vas recordar los conceptos y técnicas aprendidas 
+en esta unidad. Además, vas a reflexionar sobre tu proceso de aprendizaje.
 
 {unit.actividades
   .filter(act => act.fase === "reflect")
