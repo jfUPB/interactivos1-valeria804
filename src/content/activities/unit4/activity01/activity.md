@@ -29,7 +29,7 @@ Al explorar este sitio verifica si el ejemplo está hecho con p5.js siguiendo es
 ![p5.js](../../../../assets/p5jsMode.png)
 
 Nota también que en esta parte de la página puedes verificar si el código 
-requiere alguna librería adicional y archivos para su correcto funcionamiento (pestaña FILES 
+requiere alguna biblioteca adicional y archivos para su correcto funcionamiento (pestaña FILES 
 al lado de SKETCH).
 
 Otros sitios que te pueden servir de inspiración:
@@ -37,7 +37,7 @@ Otros sitios que te pueden servir de inspiración:
 - [Generative Design](http://www.generative-gestaltung.de/2/)
 - [p5.js examples](https://p5js.org/examples/)
 
-**Entrega**: de cada uno de estos sitios busca un ejemplo que te haya 
+**Entrega**: de cada uno de estos sitios selecciona un ejemplo que te haya 
 llamado la atención. Luego, en tu entrega, realiza lo siguiente:
 
 - Copia el enlace del ejemplo.

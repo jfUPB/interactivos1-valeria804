@@ -41,7 +41,7 @@ Qué significa esta parte del código:
 - Observa en la aplicación SerialTerminal cómo se ven los datos que se están 
 enviando. ¿Qué puedes inferir de la estructura de los datos?
 - ¿Por qué se separan los datos con comas y se termina con un salto de línea?
-- ¿Qué crees que pasaría si no separan los datos con comas y no terminan con
+- ¿Qué crees que pasaría si no se separan los datos con comas y no terminan con
 un salto de línea?
 - Para qué crees que se usa la función `sleep(100)`? ¿Qué pasaría si no se 
 usara?
@@ -52,6 +52,11 @@ se inclina hacia la izquierda, derecha, adelante y atrás. ¿Qué valores toman
 - Observa qué ocurre si en vez de is_pressed() usas was_pressed(). ¿Qué diferencias
 encuentras?
 
+Finalmente, analiza este asunto: si el micro:bit tiene los siguientes datos xValue: 969, 
+yValue: 652, aState: True, bState: False ¿Qué bytes se enviarían por el puerto serial? Piensa, 
+primero piensa por favor, y luego verifica con la aplicación [SerialTerminal](https://juanferfranco.github.io/serialTerminal/). 
+Ten presente que en `Mostrar datos como` puedes ver los bytes que se están enviando mediante 
+`Todo en HEX`.
 
 **Entrega**: reporta los experimentos y hallazgos que vas encontrando a medida 
 que analizas el código y responde las preguntas que te voy haciendo en el enunciado.
