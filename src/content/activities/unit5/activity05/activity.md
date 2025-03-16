@@ -3,12 +3,12 @@
 🎯 **Enunciado**: vas a revisar lo que has descubierto y experimentado en 
 esta unidad. 
 
-1. En la unidad anterior abordas la construcción de un protocolo ASCII. En 
+1. En la unidad anterior abordaste la construcción de un protocolo ASCII. En 
 esta unidad realizaste lo propio con un protocolo binario. Realiza una tabla 
 donde compares, según la aplicación que modificaste en la fase de aplicación 
 de ambas unidades, los siguientes aspectos: eficiencia, velocidad, facilidad, 
-usos de Recursos. Justifica por qué cada comparación con ejemplos concretos 
-de la aplicación modificada.
+usos de recursos. Justifica con ejemplos concretos tomados de las aplicaciones 
+modificadas.  
 2. ¿Por qué fue necesario introducir framing en el protocolo binario? 
 3. ¿Cómo funciona el framing?
 4. ¿Qué es un carácter de sincronización?
@@ -27,7 +27,7 @@ function readSerialData() {
 ```
 
 - En la función ``readSerialData()`` tenemos un bucle que recorre el buffer solo 
-si este tiene 8 o más bytes por qué?
+si este tiene 8 o más bytes ¿Por qué?
 
 ``` js
   while (serialBuffer.length >= 8) {
@@ -55,7 +55,7 @@ serialBuffer.splice(0, 8);
 ```
 
 - A la siguiente parte del código se le conoce como programación funcional 
-¿Cómo funciona la función reduce? 
+¿Cómo opera la función reduce? 
 
 ``` js
     let computedChecksum = dataBytes.reduce((acc, val) => acc + val, 0) % 256;
