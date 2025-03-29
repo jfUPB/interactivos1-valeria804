@@ -1,9 +1,11 @@
 #### Consolidación de lo aprendido
 
-🎯 **Enunciado**: responde las siguientes preguntas para consolidar tu comprensión de 
+:::note[🎯 **Enunciado**]
+Responde las siguientes preguntas para consolidar tu comprensión de 
 los conceptos clave de esta unidad.
+:::
 
-🧐✍️ Reflexiona y responde:
+:::caution[🧐✍️ Reflexiona y responde]
 
 1. Describe con tus propias palabras cuál es la función del servidor Node.js en la arquitectura que exploramos. ¿Por qué los clientes p5.js no se comunican directamente entre sí?  
 
@@ -14,6 +16,9 @@ los conceptos clave de esta unidad.
 4. ¿Qué rol juega el protocolo http y qué rol juega socket.io (que usa WebSockets por debajo) en la aplicación del caso de estudio?
 
 5. ¿Qué fue lo más sorprendente o interesante que aprendiste sobre la comunicación en red en esta unidad?
+:::
 
-📤 **Entrega**: escribe tus respuestas a las preguntas de consolidación en tu bitácora. 
 
+:::caution[📤 **Entrega**]
+Escribe tus respuestas a las preguntas de consolidación en tu bitácora. 
+:::

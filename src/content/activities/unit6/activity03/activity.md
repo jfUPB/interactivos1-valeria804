@@ -1,9 +1,11 @@
 #### El Servidor (Node.js)
 
-🎯 **Enunciado**: vamos a analizar paso a paso el archivo server.js. Este script es el núcleo que 
+:::note[🎯 **Enunciado**]
+Vamos a analizar paso a paso el archivo server.js. Este script es el núcleo que 
 permite la comunicación en tiempo real. No te preocupes si ves código nuevo, iremos explicando cada parte.
+:::
 
-1. Dependencias: Las herramientas necesarias
+##### 1. Dependencias: las herramientas necesarias
 
 ``` js
 // server.js
@@ -13,19 +15,23 @@ const socketIO = require('socket.io');
 const path = require('path');
 ```
 
-🧩 **Explicación**: estas líneas importan módulos (librerías) que Node.js necesita.
+:::note[🧩 **Explicación**]
+Estas líneas importan módulos (librerías) que Node.js necesita.
 
-express: es un framework popular para construir servidores web de forma más sencilla. Nos ayuda a manejar las peticiones de los navegadores.
+* express: es un framework popular para construir servidores web de forma más sencilla. Nos ayuda a manejar las peticiones de los navegadores.
 
-http: es el módulo base de Node.js para crear servidores HTTP. Express lo usa por debajo.
+* http: es el módulo base de Node.js para crear servidores HTTP. Express lo usa por debajo.
 
-socket.io: ¡La estrella de la comunicación en tiempo real! Permite enviar mensajes bidireccionales instantáneos entre el servidor y los clientes (navegadores).
+* socket.io: ¡La estrella de la comunicación en tiempo real! Permite enviar mensajes bidireccionales instantáneos entre el servidor y los clientes (navegadores).
 
-path: una utilidad para trabajar con rutas de archivos y directorios de forma segura en cualquier sistema operativo.
+* path: una utilidad para trabajar con rutas de archivos y directorios de forma segura en cualquier sistema operativo.
+:::
 
-🧐✍️ Reflexiona: ¿Por qué crees que es útil usar módulos o librerías en lugar de escribir todo desde cero? ¿Qué ventajas aporta? Anota tus ideas en la bitácora.
+:::caution[🧐✍️ Reflexiona]
+¿Por qué crees que es útil usar módulos o librerías en lugar de escribir todo desde cero? ¿Qué ventajas aporta? Anota tus ideas en la bitácora.
+:::
 
-2. Creación del Servidor y Socket.IO
+##### 2. Creación del Servidor y Socket.IO
 
 ``` js
 const app = express();
@@ -34,40 +40,45 @@ const io = socketIO(server);
 const port = 3000;
 ```
 
-🧩 **Explicación**:
+:::note[🧩 **Explicación**]
 
-app = express(): creamos una instancia de la aplicación Express. app será nuestro objeto principal para configurar el servidor web.
+* app = express(): creamos una instancia de la aplicación Express. app será nuestro objeto principal para configurar el servidor web.
 
-server = http.createServer(app): creamos un servidor HTTP estándar y le decimos que use nuestra aplicación app de Express para gestionar las peticiones.
+* server = http.createServer(app): creamos un servidor HTTP estándar y le decimos que use nuestra aplicación app de Express para gestionar las peticiones.
 
-io = socketIO(server): ¡Aquí conectamos Socket.IO! Le decimos que ``"escuche"`` en nuestro servidor HTTP (server). Ahora io nos permitirá manejar las conexiones de Socket.IO.
+* io = socketIO(server): ¡Aquí conectamos Socket.IO! Le decimos que ``"escuche"`` en nuestro servidor HTTP (server). Ahora io nos permitirá manejar las conexiones de Socket.IO.
 
-port = 3000: definimos la variable port con el número 3000. Es el número de puerto en el que nuestro servidor escuchará las conexiones entrantes.
+* port = 3000: definimos la variable port con el número 3000. Es el número de puerto en el que nuestro servidor escuchará las conexiones entrantes.
+:::
 
-3. Variables para guardar el estado
+##### 3. Variables para guardar el estado
 
 ``` js
 let page1 = { x: 0, y: 0, width: 100, height: 100 };
 let page2 = { x: 0, y: 0, width: 100, height: 100 };
 ```
 
-🧩 **Explicación**: estas variables globales (page1, page2) las usará el servidor para recordar la 
+:::note[🧩 **Explicación**]
+Estas variables globales (page1, page2) las usará el servidor para recordar la 
 última información (posición y tamaño) que recibió de cada cliente (ventana del navegador). 
 Se inicializan con valores por defecto.
+:::
 
-4. Sirviendo los archivos del cliente
+##### 4. Sirviendo los archivos del cliente
 
 ``` js	
 // Sirve archivos estáticos (HTML, CSS, JS del cliente) desde la carpeta 'views'
 app.use(express.static(path.join(__dirname, 'views')));
 ```
 
-🧩 **Explicación**: esta línea es importante. Le dice a Express que, si un navegador pide un archivo 
+:::note[🧩 **Explicación**]
+Esta línea es importante. Le dice a Express que, si un navegador pide un archivo 
 (como page1.js o style.css), lo busque dentro de la carpeta views. ``__dirname`` es una variable 
 especial de Node.js que representa la ruta absoluta de la carpeta donde se encuentra 
 server.js, y path.join la une de forma segura con views.
+:::
 
-🧐🧪✍️ Experimenta:
+:::caution[🧐🧪✍️ Experimenta]
 
 - Detén el servidor (Ctrl+C en la terminal).
 
@@ -81,8 +92,10 @@ en el navegador.
 de desarrollador (F12)?
 
 - Vuelve a dejar la línea como estaba ('views') y verifica que funcione de nuevo. Anota tus observaciones.
+:::
 
-5. Rutas: Qué enviar cuando se pide una URL
+
+##### 5. Rutas: Qué enviar cuando se pide una URL
 
 ``` js
 // Define la ruta para servir page1.html
@@ -96,11 +109,13 @@ app.get('/page2', (req, res) => {
 });
 ```
 
-🧩 **Explicación**: Estas funciones definen qué debe hacer el servidor cuando un navegador solicita las URLs /page1 o /page2. app.get le dice a Express que escuche peticiones GET para esas rutas. Cuando llega una petición, ejecuta la función asociada:
+:::note[🧩 **Explicación**] 
+Estas funciones definen qué debe hacer el servidor cuando un navegador solicita las URLs /page1 o /page2. app.get le dice a Express que escuche peticiones GET para esas rutas. Cuando llega una petición, ejecuta la función asociada:
 
 res.sendFile(...): Envía el archivo HTML correspondiente (page1.html o page2.html) de vuelta al navegador. De nuevo, path.join construye la ruta completa al archivo.
+:::
 
-🧐🧪✍️ Experimenta:
+:::caution[🧐🧪✍️ Experimenta]
 
 - Detén el servidor.
 
@@ -113,8 +128,10 @@ res.sendFile(...): Envía el archivo HTML correspondiente (page1.html o page2.ht
 - Ahora intenta acceder a http://localhost:3000/pagina_uno. ¿Funciona?
 
 - ¿Qué te dice esto sobre cómo el servidor asocia URLs con respuestas? Restaura el código.
+:::
 
-6. ¡La Magia de Socket.IO! La Conexión
+
+##### 6. ¡La Magia de Socket.IO! La Conexión
 
 ``` js
 // Evento principal de Socket.IO: se dispara cuando un cliente se conecta
@@ -130,7 +147,8 @@ io.on('connection', (socket) => {
 });
 ```
 
-🧩 **Explicación**: esta es la parte central de Socket.IO en el servidor.
+:::note[🧩 **Explicación**] 
+Esta es la parte central de Socket.IO en el servidor.
 
 io.on('connection', ...): Establece un ``"oyente"`` para el evento connection. Este evento 
 se dispara cada vez que un nuevo cliente (una ventana del navegador con page1.js o page2.js) 
@@ -146,8 +164,10 @@ quién se conecta o desconecta.
 socket.on('disconnect', ...): dentro del oyente de connection, establecemos otro oyente 
 específico para ese socket. Este se dispara cuando ese cliente en particular se desconecta 
 (cierra la pestaña, pierde conexión, etc.).
+:::
 
-🧐🧪✍️ **Experimenta**:
+
+:::caution[🧐🧪✍️ **Experimenta**]
 
 - Asegúrate de que el servidor esté corriendo (npm start).
 
@@ -158,8 +178,10 @@ específico para ese socket. Este se dispara cuando ese cliente en particular se
 - Cierra la pestaña de page1. Observa la terminal. ¿Qué mensaje ves? ¿Coincide el ID con el que anotaste?
 
 - Cierra la pestaña de page2. Observa la terminal.
+:::
 
-7. Escuchando Mensajes de los Clientes
+
+##### 7. Escuchando Mensajes de los Clientes
 
 ``` js
 // Dentro de io.on('connection', (socket) => { ... });
@@ -183,7 +205,8 @@ específico para ese socket. Este se dispara cuando ese cliente en particular se
     });
 ```
 
-🧩 **Explicación**: estos bloques también van dentro de io.on('connection', ...) 
+:::note[🧩 **Explicación**] 
+Estos bloques también van dentro de io.on('connection', ...) 
 porque definen cómo debe reaccionar el servidor a mensajes de un cliente 
 específico (socket).
 
@@ -207,8 +230,9 @@ emit('getdata', page1): envía un nuevo mensaje llamado 'getdata' a todos los de
 clientes, llevando consigo la información actualizada de page1.
 
 El bloque socket.on('win2update', ...) es simétrico, pero para los mensajes que vienen de page2.js.
+:::
 
-🧐🧪✍️ **Experimenta**:
+:::caution[🧐🧪✍️ **Experimenta**]
 
 - Asegúrate de que los console.log que añadimos estén presentes en tu server.js.
 
@@ -223,8 +247,9 @@ El bloque socket.on('win2update', ...) es simétrico, pero para los mensajes que
 socket.emit('getdata', page1); (quitando broadcast). Reinicia el servidor, abre ambas páginas. 
 Mueve page1. ¿Se actualiza la visualización en page2? ¿Por qué sí o por qué no? 
 (Pista: ¿A quién le envía el mensaje socket.emit?). Restaura el código a broadcast.emit.
+:::
 
-8. Poner en Marcha el Servidor
+##### 8. Poner en marcha el Servidor
 
 ``` js
 // Inicia el servidor y lo pone a escuchar en el puerto especificado
@@ -233,14 +258,17 @@ server.listen(port, () => {
 });
 ```
 
-🧩 Explicación: esta es la línea final que efectivamente inicia el servidor.
+:::note[🧩 Explicación] 
+Esta es la línea final que efectivamente inicia el servidor.
 
 server.listen(port, ...): le dice al servidor HTTP que empiece a escuchar conexiones en el port que definimos (3000).
 
 La función () => { ... } es un callback que se ejecuta una vez que el servidor se ha 
 iniciado correctamente y está listo para aceptar conexiones. Simplemente imprime un mensaje útil en la consola.
+:::
 
-🧐🧪✍️ Experimenta:
+
+:::caution[🧐🧪✍️ Experimenta]
 
 - Detén el servidor.
 
@@ -253,8 +281,10 @@ iniciado correctamente y está listo para aceptar conexiones. Simplemente imprim
 - Intenta abrir http://localhost:3001/page1. ¿Funciona?
 
 - ¿Qué aprendiste sobre la variable port y la función listen? Restaura el puerto a 3000.
+:::
 
-📤 **Entrega** : revisa tu bitácora. Deberías tener anotaciones y reflexiones para cada uno de los 
+:::caution[📤 Entrega]
+Revisa tu bitácora. Deberías tener anotaciones y reflexiones para cada uno de los 
 8 puntos y los experimentos asociados al servidor. Asegúrate de entender el flujo: 
 recibir conexión -> escuchar eventos del cliente -> actualizar estado -> retransmitir a 
 otros clientes.

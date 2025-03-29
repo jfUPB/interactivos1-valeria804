@@ -16,16 +16,26 @@ Descarga o clona el código fuente del caso de estudio desde [este repositorio](
 
 👣 **Pasos**:
 
+:::note[🔧 Configuración del entorno]
 - Abre una terminal o símbolo del sistema en tu computador.  
 - Navega (usando el comando cd) hasta la carpeta donde descargaste/clonaste el código fuente.  
-- Ejecuta el comando: npm install  
-- Una vez que termine la instalación, ejecuta el comando: npm start  
+- Ejecuta el comando: 
+
+    ``` bash
+    npm install
+    ```  
+- Una vez que termine la instalación, ejecuta el comando: 
+    
+    ``` bash
+    npm start
+    ```  
 - Ten presente que el paso nmp install solo es necesario la primera vez que trabajas con el proyecto.
 - Observa la salida en la terminal. Deberías ver un mensaje indicando que el servidor está escuchando.
 - Abre tu navegador web preferido.
 - En una ventana, escribe la dirección: http://localhost:3000/page1
 - En otra ventana del mismo navegador, escribe la dirección: http://localhost:3000/page2
 - Interactúa con las ventanas (muévelas si tu sistema operativo lo permite, observa los elementos visuales).
+:::
 
 :::note[🧐🧪✍️ Reporta en tu bitácora]
 

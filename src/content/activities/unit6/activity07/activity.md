@@ -1,8 +1,10 @@
 #### Autoevaluación
 
-🎯 **Enunciado**: reflexiona sobre tu propio proceso de aprendizaje durante esta unidad.
+:::note[🎯 **Enunciado**]
+Reflexiona sobre tu propio proceso de aprendizaje durante esta unidad.
+:::
 
-🧐✍️ Evalúate:
+:::caution[🧐✍️ Evalúate]
 
 Considera las siguientes afirmaciones y evalúa tu nivel de confianza (por ejemplo, en una escala de 1 a 5, donde 1 es 'Nada confiado' y 5 es 'Muy confiado', o simplemente describiendo tu nivel):
 
@@ -24,12 +26,14 @@ Considera las siguientes afirmaciones y evalúa tu nivel de confianza (por ejemp
 
 9. Pude aplicar los conceptos modificando el caso de estudio para crear algo nuevo.
 
-Además, responde brevemente:
+**Además, responde brevemente**:
 
 10. ¿Qué estrategia de aprendizaje te funcionó mejor en esta unidad (analizar el código, 
 experimentar con modificaciones, leer explicaciones, etc.)?
 
 11. ¿Qué aspecto te resultó más desafiante?
+:::
 
-📤 Entrega: Registra tu autoevaluación en tu bitácora.
-
+:::caution[📤 Entrega]
+Registra tu autoevaluación en tu bitácora.
+:::

@@ -1,8 +1,10 @@
 #### Feedback
 
-🎯 **Enunciado**: tu opinión es valiosa para mejorar este curso. Por favor, comparte tus comentarios sobre esta unidad.
+:::note[🎯 **Enunciado**]
+Tu opinión es valiosa para mejorar este curso. Por favor, comparte tus comentarios sobre esta unidad.
+:::
 
-🧐✍️ Comparte tu opinión:
+:::caution[🧐✍️ Comparte tu opinión]
 
 1. ¿Qué fue lo que más te gustó o te resultó más útil de esta unidad?
 
@@ -12,6 +14,8 @@
 actividades de esta unidad?
 
 4. ¿El ritmo de la unidad fue adecuado para ti?
+:::
 
-📤 **Entrega**: escribe tus comentarios y sugerencias en tu bitácora.
-
+:::caution[📤 **Entrega**]
+Escribe tus comentarios y sugerencias en tu bitácora.
+:::

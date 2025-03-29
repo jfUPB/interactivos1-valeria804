@@ -1,10 +1,12 @@
 #### Explorando los clientes (p5.js + Socket.IO)
 
-🎯 **Enunciado**: ahora nos enfocaremos en cómo uno de los clientes, page2.js, 
+:::note[🎯 **Enunciado**] 
+Ahora nos enfocaremos en cómo uno de los clientes, page2.js, 
 interactúa con el servidor y visualiza la información. El código de page1.js es 
 muy similar, así que entender uno te ayudará a entender el otro.
+:::
 
-1. Variables globales y conexión inicial
+##### 1. Variables globales y conexión inicial
 
 ``` js
 // page2.js 
@@ -16,7 +18,7 @@ let point2 = [currentPageData.width / 2, currentPageData.height / 2];
 let socket = io('http://localhost:3000'); 
 ```
 
-🧩 **Explicación**:
+:::note[🧩 **Explicación**]
 
 currentPageData: un objeto que almacena la posición (screenX, screenY) y tamaño (innerWidth, innerHeight) de esta ventana del navegador.
 
@@ -25,8 +27,10 @@ remotePageData: un objeto para almacenar los datos que recibiremos sobre la otra
 point2: coordenadas del centro de esta ventana, para dibujar.
 
 socket = io('http://localhost:3000');: ¡Aquí el cliente inicia la conexión! Llama a la función io() (proporcionada por la librería Socket.IO que cargamos en el HTML) pasándole la dirección del servidor. Esto intenta establecer la conexión WebSocket.
+:::
 
-🧐🧪✍️ **Experimenta**:
+
+:::caution[🧐🧪✍️ **Experimenta**]
 
 - Abre page2.html en tu navegador (con el servidor corriendo).
 
@@ -37,8 +41,9 @@ socket = io('http://localhost:3000');: ¡Aquí el cliente inicia la conexión! L
 - Refresca la página page2.html. Observa la consola del navegador. ¿Ves algún error relacionado con la conexión? ¿Qué indica?
 
 - Vuelve a iniciar el servidor y refresca la página. ¿Desaparecen los errores?
+:::
 
-2. Manejando la conexión establecida
+##### 2. Manejando la conexión establecida
 
 ``` js
 // Evento: se dispara cuando la conexión con el servidor se establece
@@ -49,25 +54,27 @@ socket.on('connect', () => {
 });
 ```
 
-🧩 **Explicación**: 
+:::note[🧩 **Explicación**] 
 
-socket.on('connect', ...): este oyente se dispara cuando la conexión iniciada con io() se completa exitosamente.
+* socket.on('connect', ...): este oyente se dispara cuando la conexión iniciada con io() se completa exitosamente.
 
-console.log(...): muestra un mensaje y el ID único asignado por el servidor a esta conexión de cliente.
+* console.log(...): muestra un mensaje y el ID único asignado por el servidor a esta conexión de cliente.
 
-socket.emit('win2update', currentPageData, socket.id);: ¡El cliente envía su primer mensaje!
+* socket.emit('win2update', currentPageData, socket.id);: ¡El cliente envía su primer mensaje!
 
-    emit: función para enviar un mensaje al servidor.
+    * emit: función para enviar un mensaje al servidor.
 
-    'win2update': es el nombre del evento que estamos enviando. Debe coincidir con el que el servidor está escuchando (socket.on('win2update', ...) en server.js).
+    * 'win2update': es el nombre del evento que estamos enviando. Debe coincidir con el que el servidor está escuchando (socket.on('win2update', ...) en server.js).
 
-    currentPageData: son los datos que enviamos (la posición y tamaño de esta ventana).
+    * currentPageData: son los datos que enviamos (la posición y tamaño de esta ventana).
 
-    socket.id: enviamos también nuestro ID (aunque en este caso particular el servidor ya lo sabe, es una práctica común).
+    * socket.id: enviamos también nuestro ID (aunque en este caso particular el servidor ya lo sabe, es una práctica común).
 
-Importante: esto asegura que, tan pronto como nos conectamos, el servidor recibe nuestro estado inicial.
+* Importante: esto asegura que, tan pronto como nos conectamos, el servidor recibe nuestro estado inicial.
+:::
 
-🧐🧪✍️ **Experimenta**:
+
+:::caution[🧐🧪✍️ **Experimenta**]
 
 - Comenta la línea socket.emit('win2update', currentPageData, socket.id); dentro del oyente connect.
 
@@ -77,8 +84,9 @@ Importante: esto asegura que, tan pronto como nos conectamos, el servidor recibe
 
 - ¿Qué pasó en page1 antes de que movieras page2? ¿Tenía la información correcta sobre page2 
 desde el principio? ¿Por qué es útil enviar el estado inicial al conectarse? Descomenta la línea.
+:::
 
-3. Recibiendo datos del servidor
+##### 3. Recibiendo datos del servidor
 
 ``` js
 // Evento: se dispara cuando se recibe un mensaje 'getdata' del servidor
@@ -89,7 +97,7 @@ socket.on('getdata', (dataWindow) => {
 });
 ```
 
-🧩 **Explicación**: 
+:::caution[🧩 **Explicación**] 
 
 socket.on('getdata', ...): este oyente espera mensajes con el nombre 'getdata' que provienen 
 del servidor. Recuerda que el servidor hace broadcast.emit('getdata', ...) cuando la otra 
@@ -101,8 +109,10 @@ remotePageData = dataWindow;: actualizamos nuestra variable local remotePageData
 fresca de la otra ventana.
 
 console.log(...): verificamos en la consola qué datos estamos recibiendo.
+:::
 
-🧐🧪✍️ **Experimenta**:
+
+:::caution[🧐🧪✍️ **Experimenta**]
 
 - Asegúrate de tener este console.log en page2.js.
 
@@ -111,8 +121,9 @@ console.log(...): verificamos en la consola qué datos estamos recibiendo.
 - Mueve la ventana de page1. Observa la consola del navegador de page2. ¿Se dispara el log "Page 2 received..."? ¿Qué datos muestra?
 
 - Mueve la ventana de page2. Observa la consola de page2. ¿Se dispara este log? ¿Por qué sí o por qué no? (Pista: ¿Quién envía el evento getdata?)
+:::
 
-4. Detectando cambios y enviando actualizaciones
+##### 4. Detectando cambios y enviando actualizaciones
 
 ``` js
 let previousPageData = { /* ... inicializado igual que currentPageData ... */ };
@@ -139,29 +150,31 @@ function draw() {
 }
 ```
 
-🧩 **Explicación**:
+:::caution[🧩 **Explicación**]
 
-previousPageData: una variable para recordar cómo estaba la ventana en el frame anterior.
+* previousPageData: una variable para recordar cómo estaba la ventana en el frame anterior.
 
-checkWindowPosition(): esta función se llama repetidamente desde draw().
+* checkWindowPosition(): esta función se llama repetidamente desde draw().
 
-    Obtiene el estado actual de la ventana en currentPageData.
+    * Obtiene el estado actual de la ventana en currentPageData.
 
-    El if compara cada propiedad actual con la guardada en previousPageData. Si alguna es diferente, significa que la ventana se movió o redimensionó.
+    * El if compara cada propiedad actual con la guardada en previousPageData. Si alguna es diferente, significa que la ventana se movió o redimensionó.
 
-    Solo si hubo cambio:
+    * Solo si hubo cambio:
 
-        Imprime un log.
+        * Imprime un log.
 
-        Recalcula el centro point2.
+        * Recalcula el centro point2.
 
-        Envía la actualización al servidor con socket.emit('win2update', ...).
+        * Envía la actualización al servidor con socket.emit('win2update', ...).
 
-        ¡Crucial! Actualiza previousPageData = currentPageData para que la próxima vez comparemos contra el estado actual.
+        * ¡Crucial! Actualiza previousPageData = currentPageData para que la próxima vez comparemos contra el estado actual.
 
-Llamar a checkWindowPosition() dentro de draw() asegura que estamos verificando cambios constantemente.
+* Llamar a checkWindowPosition() dentro de draw() asegura que estamos verificando cambios constantemente.
+:::
 
-🧐🧪✍️ **Experimenta**:
+
+:::caution[🧐🧪✍️ **Experimenta**]
 
 - Añade el console.log("Page 2 detected change...") dentro del if si no estaba.
 
@@ -172,8 +185,9 @@ Llamar a checkWindowPosition() dentro de draw() asegura que estamos verificando 
 - Deja la ventana de page2 quieta. ¿Aparece el mensaje?
 
 - ¿Por qué es eficiente esta estrategia de comparar con el estado anterior antes de enviar datos por la red? Anota tu reflexión.
+:::
 
-5. La visualización (draw)
+##### 5. La visualización (draw)
 
 ``` js
 function draw() {
@@ -197,7 +211,7 @@ function draw() {
 function drawCircle(x, y) { /* ... dibuja el círculo ... */ }
 ```
 
-🧩 **Explicación**:
+:::note[🧩 **Explicación**]
 
 La función draw() de p5.js se ejecuta continuamente (unos 60 frames por segundo).
 
@@ -216,8 +230,10 @@ centro de la ventana remota. Se le suma la mitad del ancho/alto de la ventana re
 
 Finalmente, dibuja una línea entre nuestro centro (point2) y el centro relativo calculado 
 de la otra ventana.
+:::
 
-🧐🧪✍️ **Experimenta** (¡Sé creativo!):
+
+:::caution[🧐🧪✍️ **Experimenta** (¡Sé creativo!)]
 
 - Cambia el background(220) para que dependa de la distancia entre las ventanas. Puedes calcular la 
 magnitud del resultingVector usando let distancia = resultingVector.mag(); y luego usar map() para 
@@ -233,9 +249,11 @@ Intenta cambiar el color de la línea (stroke(...)) basado en si la ventana remo
 la izquierda o derecha de la actual (if (resultingVector.x < 0) { stroke(...) } else { stroke(...) }).
 
 ¡Combina ideas o inventa tu propia visualización! Anota qué intentaste y qué resultado obtuviste.
+:::
 
-📤 **Entrega**: completa tu bitácora con las respuestas, observaciones y reflexiones de los experimentos 
+:::caution[📤 **Entrega**]
+Completa tu bitácora con las respuestas, observaciones y reflexiones de los experimentos 
 de la parte del cliente. Asegúrate de entender cómo el cliente envía datos (emit), recibe datos (on), 
 detecta cambios y usa los datos recibidos para la visualización.
-
+:::
 
