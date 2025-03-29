@@ -1,9 +1,11 @@
 #### El Viaje de los datos - De tu navegador al servidor y de regreso
 
-🎯 **Enunciado**: antes de sumergirnos en el código específico de nuestro caso de estudio, 
+:::note[🎯 Enunciado] 
+Antes de sumergirnos en el código específico de nuestro caso de estudio, 
 vamos a hacer un viaje conceptual. Imagina que eres un explorador en el vasto mundo digital. 
 Para navegar y interactuar con éxito, necesitas entender el mapa, las reglas de tránsito y 
 las herramientas a tu disposición.
+:::
 
 1. El gran mapa: ¿Qué es Internet?
 

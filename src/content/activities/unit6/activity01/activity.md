@@ -1,17 +1,18 @@
 #### Preparación del entorno y primer contacto
 
-🎯 **Enunciado**: antes de sumergirnos en el código, vamos a preparar nuestro 
+:::note[🎯 Enunciado]
+Antes de sumergirnos en el código, vamos a preparar nuestro 
 entorno de desarrollo y ejecutar el caso de estudio base. Es crucial entender 
 cómo poner en marcha el sistema completo.
+:::
 
-**Recursos**:
-
+:::tip[Recursos]
 Necesitarás tener [Node.js](https://nodejs.org/en) instalado en tu sistema. 
 Los computadores de la U ya lo tienen, pero si estás trabajando en tu computador personal tendrás 
 que instalarlo primero. Esto incluye npm (Node Package Manager).
 
 Descarga o clona el código fuente del caso de estudio desde [este repositorio](https://github.com/juanferfranco/juanferfranco-entagledTest-sfi1-2024-20)
-
+:::
 
 👣 **Pasos**:
 
@@ -26,7 +27,7 @@ Descarga o clona el código fuente del caso de estudio desde [este repositorio](
 - En otra ventana del mismo navegador, escribe la dirección: http://localhost:3000/page2
 - Interactúa con las ventanas (muévelas si tu sistema operativo lo permite, observa los elementos visuales).
 
-🧐🧪✍️ Reporta en tu bitácora:
+:::note[🧐🧪✍️ Reporta en tu bitácora]
 
 - ¿Qué ocurrió en la terminal cuando ejecutaste npm install? 
 ¿Cuál crees que es su propósito?  
@@ -38,7 +39,10 @@ ejecutar npm start? ¿Qué indica este mensaje?
 ventanas. ¿Cambia algo visualmente? ¿Qué mensajes aparecen (si los hay) en la 
 consola del navegador (usualmente accesible con F12 -> Pestaña Consola) y en 
 la terminal del servidor?
+:::
 
-📤 **Entrega**: documenta en tu bitácora el proceso de configuración, las salidas de la 
+:::caution[📤 Entrega]
+Documenta en tu bitácora el proceso de configuración, las salidas de la 
 terminal, tus observaciones iniciales del comportamiento de las páginas y los resultados 
 de tu primera interacción. 
+:::

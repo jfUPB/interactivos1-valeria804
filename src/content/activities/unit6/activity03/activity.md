@@ -254,7 +254,7 @@ iniciado correctamente y está listo para aceptar conexiones. Simplemente imprim
 
 - ¿Qué aprendiste sobre la variable port y la función listen? Restaura el puerto a 3000.
 
-📤 Entrega : revisa tu bitácora. Deberías tener anotaciones y reflexiones para cada uno de los 
+📤 **Entrega** : revisa tu bitácora. Deberías tener anotaciones y reflexiones para cada uno de los 
 8 puntos y los experimentos asociados al servidor. Asegúrate de entender el flujo: 
 recibir conexión -> escuchar eventos del cliente -> actualizar estado -> retransmitir a 
 otros clientes.
