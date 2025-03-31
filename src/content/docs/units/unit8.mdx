@@ -5,6 +5,7 @@ unitId: unit8
 
 import ActivityPlaceholder from '../../../components/ActivityPlaceholder.astro';
 import unidades from '../../activities/unidades.json';
+import { Aside} from '@astrojs/starlight/components';
 
 export const unit = unidades.find(u => u.nombre === frontmatter.title);
 
