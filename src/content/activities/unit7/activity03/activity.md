@@ -73,27 +73,27 @@ io.on('connection', (socket) => {
 
 :::note[🧩 Explicación (Manejo de conexiones y mensajes)]
 
-io.on('connection', (socket) => { ... }); es el corazón de Socket.IO en el servidor. Esta función se ejecuta cada vez que un cliente (sea el escritorio o el móvil) establece una conexión WebSocket.
+* io.on('connection', (socket) => { ... }); es el corazón de Socket.IO en el servidor. Esta función se ejecuta cada vez que un cliente (sea el escritorio o el móvil) establece una conexión WebSocket.
 
-El parámetro socket representa la conexión individual con ese cliente específico. Cada cliente conectado tiene su propio objeto socket.
+* El parámetro socket representa la conexión individual con ese cliente específico. Cada cliente conectado tiene su propio objeto socket.
 
-console.log('New client connected...'): informa en la consola del servidor que alguien se conectó, mostrando su socket.id único.
+* console.log('New client connected...'): informa en la consola del servidor que alguien se conectó, mostrando su socket.id único.
 
-socket.on('message', (message) => { ... });: dentro del manejador de connection, definimos qué hacer cuando ese cliente específico (socket) envía un evento llamado 'message'.
+* socket.on('message', (message) => { ... });: dentro del manejador de connection, definimos qué hacer cuando ese cliente específico (socket) envía un evento llamado 'message'.
 
-message: contiene los datos enviados por el cliente (en nuestro caso, la cadena JSON con los datos del touch).
+* message: contiene los datos enviados por el cliente (en nuestro caso, la cadena JSON con los datos del touch).
 
-console.log(...): muestra el mensaje recibido y quién lo envió.
+* console.log(...): muestra el mensaje recibido y quién lo envió.
 
-socket.broadcast.emit('message', message);: ¡La retransmisión!
+* socket.broadcast.emit('message', message);: ¡La retransmisión!
 
-    broadcast: significa "enviar a todos los clientes conectados, excepto al que originó este mensaje (socket)".
+    * broadcast: significa "enviar a todos los clientes conectados, excepto al que originó este mensaje (socket)".
 
-    emit('message', message): envía un evento 'message' con los mismos datos (message) que se recibieron.
+    * emit('message', message): envía un evento 'message' con los mismos datos (message) que se recibieron.
 
-    Efecto: cuando el móvil envía un mensaje, el servidor lo recibe y lo reenvía inmediatamente al escritorio (y a cualquier otro cliente conectado, excepto al propio móvil).
+    * Efecto: cuando el móvil envía un mensaje, el servidor lo recibe y lo reenvía inmediatamente al escritorio (y a cualquier otro cliente conectado, excepto al propio móvil).
 
-socket.on('disconnect', () => { ... });: se ejecuta cuando ese cliente específico cierra la conexión (cierra la pestaña, pierde Internet, etc.). Informa en la consola.
+* socket.on('disconnect', () => { ... });: se ejecuta cuando ese cliente específico cierra la conexión (cierra la pestaña, pierde Internet, etc.). Informa en la consola.
 :::
 
 ``` js
