@@ -1,178 +1,163 @@
-#### Análisis del cliente móvil (`mobile/sketch.js`)
+#### Análisis del cliente móvil (`mobile/sketch.js`) y de escritorio (`desktop/sketch.js`)
 
 :::note[🎯 Enunciado]
-Ahora nos centraremos en el código que se ejecuta en tu celular. Analizaremos cómo `mobile/sketch.js` captura los eventos táctiles, los formatea y los envía al servidor Node.js a través de la conexión Socket.IO establecida por Dev Tunnels.
+Ahora analizaremos el código que corre en los navegadores: el cliente móvil que captura el toque (`mobile/sketch.js`) y el cliente de escritorio que recibe la información y dibuja (`desktop/sketch.js`). Veremos cómo usan Socket.IO para comunicarse con el servidor.
 :::
 
 :::tip[Recursos]
-- El archivo `mobile/sketch.js` y `mobile/index.html` del caso de estudio.
-- La explicación sobre JSON y eventos táctiles de la actividad 02.
-- La URL de Dev Tunnels que configuraste.
-- Referencia de p5.js: `touchMoved()`, `mouseX`, `mouseY`, `abs()`.
-- Referencia de Socket.IO Client API: `io()`, `socket.on()`, `socket.emit()`, `socket.connected`.
+*   Archivos `public/mobile/index.html`, `public/mobile/sketch.js`, `public/desktop/index.html`, `public/desktop/sketch.js`.
+*   [Documentación de p5.js (especialmente `touchMoved`, `mouseX`, `mouseY`)](https://p5js.org/reference/)
+*   [Documentación de Socket.IO (Client API)](https://socket.io/docs/v4/client-api/)
 :::
 
 👣 **Pasos**: (Análisis del código)
 
-```html
-<!-- mobile/index.html (fragmento relevante) -->
-<script src="https://cdn.jsdelivr.net/npm/p5@1.11.0/lib/p5.min.js"></script>
-<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-<script src="sketch.js"></script>
-```	
+##### 1. Cliente móvil (`mobile/sketch.js`) - El Emisor
 
-:::note[🧩 Explicación (HTML Setup)]
+```javascript
+// mobile/sketch.js (partes clave)
+let socket;
+let lastTouchX = null;
+let lastTouchY = null;
+const threshold = 5; // Umbral para evitar enviar demasiados mensajes
 
-El index.html incluye las librerías necesarias: p5.js para dibujar y manejar eventos, la librería cliente de Socket.IO para la comunicación en red, y nuestro propio sketch.js.
-:::
-
-``` js  
-// mobile/sketch.js
-let socket; // Variable para guardar la conexión Socket.IO
-let lastTouchX = null; // Última coordenada X enviada
-let lastTouchY = null; // Última coordenada Y enviada
-const threshold = 5;   // Umbral de movimiento mínimo para enviar
-```
-
-:::note[🧩 Explicación (Variables globales)]
-
-socket: almacenará el objeto de conexión Socket.IO.
-
-lastTouchX, lastTouchY: guardan la posición del último toque enviado al servidor. Se usan para calcular el desplazamiento.
-
-threshold: define cuántos píxeles debe moverse el dedo (en x o y) antes de que consideremos que es un movimiento "significativo" y enviemos una actualización.
-:::
-
-``` js	
 function setup() {
-    createCanvas(windowWidth, windowHeight);
-    background(220);
-
-    // Conectar al servidor de Socket.IO
-    //let socketUrl = 'http://localhost:3000';
+    // ... createCanvas, background ...
     socket = io();
 
-    socket.on('connect', () => {
-        console.log('Connected to server');
-    });
-
-    socket.on('message', (data) => {
-        console.log(`Received message: ${data}`);
-    });
-
-    socket.on('disconnect', () => {
-        console.log('Disconnected from server');
-    });
-
-    socket.on('connect_error', (error) => {
-        console.error('Socket.IO error:', error);
-    });
+    socket.on('connect', () => console.log('Connected to server'));
+    // ... otros listeners de socket ('message', 'disconnect', 'connect_error') ...
 }
-```
 
-:::note[🧩 Explicación (setup)]
-
-* createCanvas(windowWidth, windowHeight): Crea un canvas p5.js que llena la pantalla del móvil.
-
-* socket = io();: inicia la conexión al servidor Socket.IO en la URL especificada.
-
-* socket.on(...): se configuran oyentes (event listener) para eventos estándar de Socket.IO:
-
-    * connect: se dispara cuando la conexión es exitosa. Imprime el ID asignado por el servidor.
-
-    * message: aunque este cliente no espera recibir mensajes del tipo 'message' del servidor en esta aplicación, es buena práctica tener un oyente por si acaso o para depuración.
-
-    * disconnect: se dispara si la conexión se pierde.
-
-    * connect_error: se dispara si hay problemas al intentar conectar (URL incorrecta, servidor caído, problema de red, etc.).
-:::
-
-``` js
-function draw() {
-    background(220);
-    fill(255, 128, 0);
-    textAlign(CENTER, CENTER);
-    textSize(24);
-    text('Touch to move the circle', width / 2, height / 2);
-}
-```
-
-:::note[🧩 Explicación (draw)]
-
-Una función draw muy simple. Limpia el fondo y muestra un texto instructivo. No realiza ninguna animación o dibujo complejo, ya que su función principal es capturar la entrada táctil.
-:::
-
-``` js
-
-function touchMoved() {
-    // Solo intentar enviar si la conexión está activa
-    if (socket && socket.connected) { 
-        // Calcular cuánto se movió desde la última vez que enviamos
+function touchMoved() { // Función especial de p5.js para eventos táctiles
+    if (socket && socket.connected) {
+        // Calcula si el movimiento supera el umbral
         let dx = abs(mouseX - lastTouchX);
         let dy = abs(mouseY - lastTouchY);
 
-        // Si el movimiento (en x O en y) supera el umbral...
-        if (dx > threshold || dy > threshold) {
-            // 1. Crear el objeto de datos
+        if (dx > threshold || dy > threshold || lastTouchX === null) { // Enviar si supera umbral o es el primer toque
             let touchData = {
-                type: 'touch', // Identificador del tipo de mensaje
-                x: mouseX,     // Coordenada X actual del toque
-                y: mouseY      // Coordenada Y actual del toque
+                type: 'touch', // Tipo de mensaje (podríamos tener otros)
+                x: mouseX,     // Coordenada X del toque (relativa al canvas móvil)
+                y: mouseY      // Coordenada Y del toque
             };
+            // Envía el objeto como una cadena JSON al servidor
+            socket.emit('message', JSON.stringify(touchData));
 
-            // 2. Convertir el objeto a una cadena JSON
-            let messageString = JSON.stringify(touchData);
-            
-            // 3. Enviar la cadena JSON al servidor con el nombre de evento 'message'
-            socket.emit('message', messageString);
-            // console.log('Mobile sent:', messageString); // Descomentar para depuración
-
-            // 4. Actualizar las últimas coordenadas enviadas
+            // Actualiza la última posición registrada
             lastTouchX = mouseX;
             lastTouchY = mouseY;
         }
     }
-    // Prevenir comportamientos táctiles por defecto del navegador (scroll, zoom)
-    return false; 
+    return false; // Evita comportamiento default del navegador en móviles
 }
 ```
-:::note[🧩 Explicación (touchMoved)]
 
-Esta función se ejecuta automáticamente por p5.js cada vez que el dedo se mueve sobre el canvas mientras está presionado.
+:::note[🧩 Explicación (Móvil)]
 
-``if (socket && socket.connected)``: verifica que la conexión Socket.IO esté establecida antes de intentar enviar algo.
+setup(): Se conecta al servidor Socket.IO usando la URL del Dev Tunnel. Se configuran listeners básicos para saber si la conexión fue exitosa, si llega algún mensaje (aunque este cliente no espera recibir datos relevantes), o si hay errores/desconexión.
 
-``let dx = ...; let dy = ...;``: calcula la distancia absoluta (abs()) recorrida en X e Y desde la última posición enviada (lastTouchX, lastTouchY).
+touchMoved(): Esta función de p5.js se llama automáticamente cada vez que el usuario mueve el dedo sobre la pantalla táctil (dentro del canvas).
 
-``if (dx > threshold || dy > threshold)``: comprueba si el movimiento superó el umbral en cualquier dirección.
+Umbral (threshold): Se introduce una optimización. Para no saturar la red enviando un mensaje por cada mínimo pixel de movimiento, solo se envía si el dedo se ha movido más de threshold píxeles desde la última vez que se envió un mensaje. También se envía siempre en el primer toque (lastTouchX === null).
 
-Si se superó el umbral:
+touchData: Se crea un objeto JavaScript con la información relevante: un type (útil si quisiéramos enviar distintos tipos de datos) y las coordenadas x e y del toque (mouseX, mouseY en p5.js registran la posición del último toque/ratón).
 
-``let touchData = {...}``: crea un objeto JavaScript limpio con la información relevante (type, x, y). mouseX y mouseY contienen las coordenadas del toque dentro de touchMoved.
+JSON.stringify(touchData): El objeto touchData se convierte a una cadena de texto en formato JSON. Es una práctica común y robusta para enviar datos estructurados a través de la red.
 
-``let messageString = JSON.stringify(touchData)``: convierte el objeto a formato JSON string.
+socket.emit('message', ...): Se envía el evento 'message' al servidor, llevando la cadena JSON como dato.
 
-``socket.emit('message', messageString)``: envía el mensaje al servidor. El nombre del evento es 'message', y los datos son la cadena JSON.
+return false;: Previene comportamientos por defecto del navegador en eventos táctiles (como hacer scroll o zoom), que podrían interferir.
+:::
 
-``lastTouchX = mouseX; lastTouchY = mouseY;``: actualiza las variables para la próxima comparación en touchMoved.
+:::caution[🧐🧪✍️ Reflexiona (Móvil)]
 
-``return false;``: es importante para indicarle al navegador que no realice sus acciones táctiles por defecto (como intentar hacer scroll en la página) cuando tocamos el canvas de p5.js.
+¿Por qué es útil enviar los datos como un objeto JSON ({type: 'touch', x: ..., y: ...}) en lugar de simplemente enviar, por ejemplo, una cadena como "mouseX,mouseY"?
+
+¿Qué pasaría si quitaras la comprobación del threshold? ¿Cómo afectaría al rendimiento o la fluidez de la interacción?
+
+¿Cómo adaptarías este código si quisieras que también respondiera al clic del ratón en un computador (para pruebas)? (Pista: p5.js tiene mouseMoved() y mousePressed()).
+:::
+
+##### 2. Cliente de Escritorio (`desktop/sketch.js`) - El Receptor
+
+```javascript
+// desktop/sketch.js (partes clave)
+let socket;
+let circleX = 200; // Posición inicial X
+let circleY = 200; // Posición inicial Y
+
+function setup() {
+    // ... createCanvas, background ...
+    socket = io();
+
+    socket.on('connect', () => console.log('Connected to server'));
+
+    // Listener clave: se ejecuta cuando llega un mensaje del servidor
+    socket.on('message', (data) => {
+        console.log(`Received message: ${data}`);
+        try {
+            // Intenta convertir la cadena JSON de vuelta a un objeto
+            let parsedData = JSON.parse(data);
+            // Verifica si es un mensaje de tipo 'touch'
+            if (parsedData && parsedData.type === 'touch') {
+                // Actualiza las coordenadas del círculo con los datos recibidos
+                // ¡Ojo! Las coordenadas vienen del canvas móvil.
+                // Aquí simplemente las usamos, pero en un caso real podríamos necesitar mapearlas
+                // si los canvas tuvieran tamaños diferentes.
+                circleX = parsedData.x;
+                circleY = parsedData.y;
+            }
+        } catch (e) {
+            console.error("Error parsing received JSON:", e);
+        }
+    });
+
+    // ... otros listeners ('disconnect', 'connect_error') ...
+}
+
+function draw() {
+    background(220);
+    fill(255, 0, 0);
+    ellipse(circleX, circleY, 50, 50); // Dibuja el círculo en la posición actualizada
+}
+```
+
+:::note[🧩 Explicación (Escritorio)]
+
+setup(): similar al móvil, se conecta al mismo servidor Socket.IO usando la URL del túnel.
+
+socket.on('message', (data) => { ... });: este es el listener crucial. Se activa cada vez que el servidor (re)envía un evento 'message'. La variable data contiene la información enviada por el servidor (la cadena JSON que originalmente vino del móvil).
+
+JSON.parse(data): la cadena JSON recibida (data) se convierte de nuevo en un objeto JavaScript (parsedData). Es importante usar un try...catch porque si data no fuera un JSON válido, JSON.parse daría un error y detendría el script.
+
+if (parsedData && parsedData.type === 'touch'): se verifica que el objeto exista y que tenga la propiedad type con el valor 'touch'. Esto asegura que estamos procesando el tipo correcto de mensaje.
+
+circleX = parsedData.x; circleY = parsedData.y;: se actualizan las variables globales circleX y circleY con las coordenadas recibidas del móvil.
+
+draw(): la función draw de p5.js se ejecuta continuamente. Simplemente dibuja el fondo y luego el círculo rojo usando las últimas coordenadas circleX y circleY disponibles. Como estas variables se actualizan cuando llega un mensaje, el círculo parece moverse en tiempo real.
+:::
+
+:::caution[🧐🧪✍️ Reflexiona (Escritorio)]
+
+¿Por qué es importante usar JSON.parse() dentro de un bloque try...catch?
+
+Si los canvas del móvil y del escritorio tuvieran tamaños diferentes (ej: móvil 300x300, escritorio 600x600), ¿cómo modificarías el código del escritorio para que la posición del círculo rojo refleje proporcionalmente la posición del toque en el móvil? (Pista: usa la función map() de p5.js).
+
+¿Qué tendrías que cambiar en el código del escritorio si el servidor, en lugar de retransmitir el evento como 'message', lo enviara como 'updateDesktop'?
 :::
 
 :::note[🧐🧪✍️ Reporta en tu bitácora]
 
-¿Por qué es importante verificar socket && socket.connected antes de llamar a socket.emit()?
+Describe el propósito principal de mobile/sketch.js y desktop/sketch.js.
 
-Explica la lógica del threshold y las variables lastTouchX, lastTouchY. ¿Qué problema soluciona esta lógica? ¿Qué pasaría si enviáramos un mensaje en cada frame de touchMoved sin este umbral?
+Explica la función touchMoved en el móvil, incluyendo el uso del threshold y JSON.stringify.
 
-Describe los 4 pasos clave que ocurren dentro del if de touchMoved cuando se detecta un movimiento significativo.
+Explica cómo el cliente de escritorio recibe (socket.on) y procesa (JSON.parse, chequeo de type) los datos para actualizar la posición del círculo.
 
-¿Qué hace JSON.stringify() y por qué es necesario antes de socket.emit()?
-
-¿Cuál es el propósito de return false; al final de touchMoved()? Intenta comentarlo y observa qué pasa en el navegador de tu móvil al tocar y arrastrar.
+Responde a las preguntas de reflexión de las secciones del móvil y del escritorio.
 :::
 
 :::caution[📤 Entrega]
-Documenta en tu bitácora el análisis del cliente móvil (mobile/sketch.js), explicando las funciones setup, draw y especialmente touchMoved. Responde a las preguntas de reflexión y documenta el experimento con return false;.
+Incluye en tu bitácora las descripciones y explicaciones solicitadas sobre ambos scripts cliente, así como tus respuestas a las preguntas de reflexión.
 :::
-

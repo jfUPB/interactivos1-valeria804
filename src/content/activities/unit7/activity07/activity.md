@@ -16,13 +16,13 @@ Reflexiona sobre tu proceso de aprendizaje en esta unidad. Evalúa tu comprensi�
     *   Configurar y usar VS Code Dev Tunnels: \[Tu Puntuación]
     *   Implementar arquitectura cliente-servidor (móvil->servidor): \[Tu Puntuación]
     *   Usar Socket.IO para retransmitir datos (servidor->escritorio): \[Tu Puntuación]
-    *   Capturar y procesar eventos touch en móvil (p5.js): \[Tu Puntuación]
-    *   Modificar sistema interactivo para crear nueva experiencia táctil: \[Tu Puntuación]
+    *   Capturar y procesar eventos en el móvil (p5.js): \[Tu Puntuación]
+    *   Modificar sistema interactivo para crear la experiencia: \[Tu Puntuación]
     *   Analizar y explicar flujo de datos completo (móvil->servidor->escritorio): \[Tu Puntuación]
 3.  **Reflexiona sobre el proceso:**
     *   ¿Qué concepto o actividad de esta unidad te resultó **más fácil** de entender o realizar? ¿Por qué crees que fue así?
     *   ¿Qué concepto o actividad te presentó **mayor dificultad**? ¿Qué pasos seguiste para intentar superarla? ¿Qué recursos o estrategias te fueron más útiles?
-    *   Describe con tus propias palabras, como si se lo explicaras a alguien que no tomó el curso, cuál es el **flujo principal de información** en la aplicación que construimos (desde el dedo en el móvil hasta la imagen en el escritorio). ¿Qué rol juega cada tecnología (Node.js, Socket.IO, Dev Tunnels, p5.js)?
+    *   Describe con tus propias palabras, como si se lo explicaras a alguien que no tomó el curso, cuál es el **flujo principal de información** en la aplicación que construimos (desde la interacción del usuario en el móvil hasta la imagen en el escritorio). ¿Qué rol juega cada tecnología (Node.js, Socket.IO, Dev Tunnels, p5.js)?
     *   ¿Cómo crees que podrías aplicar lo aprendido en esta unidad (usar un móvil como controlador, comunicación en tiempo real, túneles) en otros proyectos o contextos?
 
 :::note[🧐🧪✍️ Reporta en tu bitácora]

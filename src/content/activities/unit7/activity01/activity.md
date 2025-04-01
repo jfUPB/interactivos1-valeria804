@@ -1,7 +1,13 @@
-#### Primer contacto: conectando el móvil al escritorio
+#### Observa funcionando el caso de estudio
 
 :::note[🎯 Enunciado]
-Vamos a configurar y ejecutar el caso de estudio base. El objetivo es lograr que la interacción táctil en una página web abierta en tu **celular** controle en tiempo real un círculo en una página web abierta en el navegador de tu **computador**. Usaremos Node.js como intermediario y VS Code Dev Tunnels para hacer la conexión posible.
+Vamos a configurar y ejecutar el caso de estudio base. El objetivo es lograr que la interacción táctil en una página web abierta en tu **celular** controle en tiempo real un círculo en una página web abierta en el navegador de tu **computador**. Usaremos Node.js como intermediario y VS Code Dev Tunnels para hacer posible la conexión entre ambas aplicaciones.
+:::
+
+:::danger[⚠️ Advertencia]
+En la unidad anterior usaste node.js para realizar el puente entre dos aplicaciones. En esta unidad 
+usaremos el mismo concepto, pero ahora necesitas una herramienta adicional: **Dev Tunnels**. ¿Por qué?
+Al terminar esta unidad verifica que tienes clara la respuesta a esta pregunta.
 :::
 
 :::tip[Recursos]
@@ -30,7 +36,7 @@ Vamos a configurar y ejecutar el caso de estudio base. El objetivo es lograr que
     *   En la columna Visibility, selecciona `Public`. Esto permitirá que el túnel sea accesible desde cualquier lugar.
     *   Copia la URL que aparece en la columna Forwarded Address. Esta URL es la que usarás para acceder al servidor 
         desde tu celular.
-    *   Envía esta la URL a tu celular. Se verá algo como `https://TU-TENDRAS-UNA-DIFERNTE.use2.devtunnels.ms/`.
+    *   Envía esta URL a tu celular. Se verá algo como `https://TU-TENDRAS-UNA-DIFERNTE.use2.devtunnels.ms/`.
 4.  **Accede a las aplicaciones:**
     *   **En tu Computador:** abre un navegador web y ve a la URL: `http://localhost:3000/desktop/`. Deberías ver el canvas de p5.js con un círculo rojo.
     *   **En tu Celular:** abre un navegador web y ve a la URL que enviaste pero añadiendo /mobile/ al final. Algo así como esto:  `https://TU-TENDRAS-UNA-DIFERNTE.use2.devtunnels.ms//mobile/` (Asegúrate de añadir `/mobile/` al final). Deberías ver el canvas de p5.js con el texto "Touch to move the circle".

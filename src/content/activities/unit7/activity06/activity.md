@@ -2,8 +2,9 @@
 
 :::note[🎯 Enunciado]
 Es momento de recapitular y asegurarte de que tienes una visión clara de todo el sistema. Crearás un 
-diagrama que ilustre todos los componentes y el flujo de información desde el toque en el móvil hasta 
-la actualización visual en el escritorio.
+diagrama que ilustre todos los componentes y el flujo de información desde el toque en el móvil, 
+selección de color y definición de stroke hasta 
+la actualización visual en el escritorio **EN LA APLICACIÓN QUE DESARROLLASTE EN LA ACTIVIDAD 5**.
 :::
 
 :::tip[Recursos]
@@ -21,7 +22,7 @@ la actualización visual en el escritorio.
     *   El usuario (interactuando con el móvil)
 2.  **Dibuja el diagrama:**
     *   Representa cada componente como una caja o nodo en tu diagrama.
-    *   Usa flechas para indicar el flujo de la información principal (el evento de toque).
+    *   Usa flechas para indicar el flujo de la información principal (el evento de toque, color, stroke).
     *   Etiqueta las flechas para indicar qué tipo de información o evento representan en cada paso (ej: "Evento touch (x, y)", "socket.emit('message', JSON)", "Petición HTTP/WebSocket", "socket.broadcast.emit('message', JSON)", "Actualización de coordenadas", "Dibujo en canvas").
     *   Asegúrate de mostrar claramente cómo interviene el servicio Dev Tunnels entre internet y tu servidor local.
 3.  **Añade explicaciones:** debajo o al lado del diagrama, escribe una breve descripción del rol de cada componente principal en el proceso general.
@@ -29,7 +30,7 @@ la actualización visual en el escritorio.
 :::note[🧐🧪✍️ Reporta en tu bitácora]
 *   Inserta la imagen de tu diagrama del sistema completo.
 *   Incluye las descripciones escritas del rol de cada componente principal (móvil, túnel, servidor, escritorio).
-*   Revisa tu diagrama y explicaciones: ¿Reflejan con precisión cómo funciona el sistema que construiste y analizaste en esta unidad? ¿Hay algún paso o componente que aún no te quede claro? Anota cualquier duda pendiente.
+*   Revisa tu diagrama y explicaciones: ¿Reflejan con precisión cómo funciona el sistema de la fase de aplicación? ¿Hay algún paso o componente que aún no te quede claro? Anota cualquier duda pendiente.
 :::
 
 :::caution[📤 Entrega]

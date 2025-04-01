@@ -21,12 +21,12 @@ Antes de analizar el código línea por línea, vamos a clarificar los conceptos
 
 2.  **La solución: VS Code Dev Tunnels (Port Forwarding):**
     *   Dev Tunnels actúa como un **intermediario seguro**. Crea un túnel desde una URL pública en Internet (la que obtuviste, como `https://TU-TENDRAS-UNA-DIFERNTE.use2.devtunnels.ms/`) hasta el puerto `3000` de tu `localhost`.
-    *   Cuando tu celular (o cualquier cliente en internet) se conecta a la URL pública de Dev Tunnels, el servicio de Dev Tunnels reenvía esa conexión de forma segura a través del túnel hasta tu servidor Node.js local.
+    *   Cuando tu celular (o cualquier cliente en Internet) se conecta a la URL pública de Dev Tunnels, el servicio de Dev Tunnels reenvía esa conexión de forma segura a través del túnel hasta tu servidor Node.js local.
     *   Del mismo modo, las respuestas de tu servidor local viajan de vuelta por el túnel hasta el servicio Dev Tunnels, que las entrega al cliente (celular/escritorio).
     *   **Analogía:** Es como tener un número de teléfono público (la URL de Dev Tunnels) que redirige las llamadas a tu teléfono privado en casa (`localhost:3000`), sin exponer directamente tu número privado.
 
 3.  **Enviando datos estructurados: JSON:**
-    *   Queremos enviar más que un simple número o texto. Necesitamos enviar la posición táctil, que tiene coordenadas `x` e `y`. Podríamos enviarlos como "120,250", pero es mejor estructurarlo.
+    *   Queremos enviar más que un simple número o texto. Necesitamos enviar la posición táctil, que tiene coordenadas `x` e `y`. Podríamos enviarlos como "120,250", pero es mejor estructurarlo. Recuerdas los protocolos ASCII y binario de las unidades anteriores? 
     *   Creamos un objeto JavaScript en el cliente móvil: `let touchData = { type: 'touch', x: mouseX, y: mouseY };`. Esto es claro y extensible (podríamos añadir más datos en el futuro).
     *   Sin embargo, Socket.IO (y muchas comunicaciones en red) envían datos como **strings** (cadenas de texto). No podemos enviar un objeto JavaScript directamente.
     *   **`JSON.stringify(touchData)`:** Convierte el objeto JavaScript en una cadena de texto con formato JSON. Ejemplo: `'{"type":"touch","x":120,"y":250}'`. Esta cadena SÍ puede enviarse por la red.
