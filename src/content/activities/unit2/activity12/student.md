@@ -161,6 +161,10 @@ elif estado == EXPLOTADA:
             display.clear()
 ```
 
+### video del codigo implementado
+
+https://youtube.com/shorts/xFCKnOMhvPw?feature=share 
+
 
 
 
