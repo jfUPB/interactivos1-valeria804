@@ -90,6 +90,7 @@ Mostrar animación de explosión (si aplica) en el display
  +--------------------------------------------------------+
                                            
 
+![image](https://github.com/user-attachments/assets/de5ed7d8-e427-45f8-abf6-a58a34b80f3d)
 
 
 
