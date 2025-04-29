@@ -61,8 +61,7 @@ function enviarEvento(valor) {
 }
 ```
 
-para este codigo se crearon las variables principales ``let botonA, botonB, botonS, botonT;`` y para hacer que este se conecte con las 
-condiciones del microbit se crean cuatro botones virtuales (A, B, S, T), que al presionarse llaman a la funcion enviarEvento() con un 
+para este codigo se crearon las variables principales ``let botonA, botonB, botonS, botonT;`` que contendran los botones,  y para hacer que este se conecte con las condiciones del microbit se crean cuatro botones virtuales (A, B, S, T), que al presionarse llaman a la funcion enviarEvento() con un 
 caracter especifico
 
 en el microbit esta el fragmento 
