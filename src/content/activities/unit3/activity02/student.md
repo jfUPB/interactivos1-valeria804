@@ -156,7 +156,7 @@ if check_deactivation():
 
 - para evitar datos basura en configuracion, por no limpiar user_sequence cuando explota se puede agregar user_sequence = [] en estado==explotada
 
-- ```py
+```py
   elif estado == EXPLOTADA:
         display.show(Image.SKULL)
 
