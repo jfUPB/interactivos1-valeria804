@@ -11,7 +11,7 @@ function setup() {
     port = createSerial();
   
     // Botón para conectar al puerto serial
-    connectBtn = createButton('Connect to micro:bit');
+    let connectBtn = createButton('Connect to micro:bit');
     connectBtn.position(30, 100);
     connectBtn.mousePressed(connectBtnClick);
   
