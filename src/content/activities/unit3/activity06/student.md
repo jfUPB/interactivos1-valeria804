@@ -10,8 +10,8 @@
 
 |estado actual|Evento|	Acción esperada|	Estado siguiente|Resultado|
 | --- | --- | --- | --- | --- |
-|ARMADA|Cada 1000ms	|tiempo_actual -= 1, mostrar tiempo	|ARMADA o EXPLOTADA si llega a 0	[X]|
-|ARMADA|tiempo_actual llega a 0	|mostrar calavera, sonar alarma|	EXPLOTADA	|[|X]|
+|ARMADA|Cada 1000ms	|tiempo_actual -= 1, mostrar tiempo	|ARMADA o EXPLOTADA si llega a 0	|[X]|
+|ARMADA|tiempo_actual llega a 0	|mostrar calavera, sonar alarma|	EXPLOTADA	|[X]|
 |ARMADA|A (evento válido)|	se añade "A" a user_sequence|	ARMADA	|[X]|
 |ARMADA|B (evento válido)|	se añade "B" a user_sequence	|ARMADA	|[X]|
 |ARMADA|S (shake o serial "S")|	se añade "SHAKE" a user_sequence|	ARMADA|	[X]|
