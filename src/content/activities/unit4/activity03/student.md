@@ -43,3 +43,14 @@ Valores de aState y bState: Son True si los botones A o B están presionados, y 
 la principal diferencia es que is-pressed() devuelve True una sola vez si el botón fue presionado desde el ciclo anterior,
 mientras que is_pressed() devuelve true si el valor esta siendo presionado
 
+#### si el micro:bit tiene los siguientes datos xValue: 969, yValue: 652, aState: True, bState: False ¿Qué bytes se enviarían por el puerto serial? 
+
+haciendo la transformacion de los caracteres ```"969,652,1,0\n"``` a HEX tendriamos: 39 36 39 2C 36 35 32 2C 31 2C 30 0A
+
+
+
+
+
+
+
+
