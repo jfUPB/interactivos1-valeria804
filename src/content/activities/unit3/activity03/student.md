@@ -48,8 +48,18 @@ def tareaEventos():
     if uart.any():
         data = uart.read(1)
         if data:
-            event_occurred = True
-            event_value = chr(data[0])
+            if data[0] == ord('A'):
+               event_occurred = True
+               event_value = "A"
+            elif data[0] == ord('B'):
+               event_occurred = True
+               event_value= "B"
+            elif data[0] == ord('S'):
+                event_occurred = True
+                event_value = "S"
+            elif data[0] == ord('T'):
+                event_occurred = True
+                event_value= "T"
 
 def tareaBomba():
     global event_occurred, event_value, estado, tiempo_inicial, tiempo_actual, ultimo_tiempo, user_sequence
@@ -58,8 +68,8 @@ def tareaBomba():
 
         if event_occurred:
             if event_value == "A" and tiempo_inicial < 60:
-                    tiempo_inicial += 1
-                    display.show(tiempo_inicial)
+                tiempo_inicial += 1
+                display.show(tiempo_inicial)
     
             elif event_value == "B" and tiempo_inicial > 10:
                 tiempo_inicial -= 1
@@ -86,11 +96,13 @@ def tareaBomba():
             music.play(music.WAWAWAWAA)
             estado = EXPLOTADA
 
-        if pin_logo.is_touched():
-            estado = CONFIGURANDO
-            tiempo_inicial = 20
-            tiempo_actual = tiempo_inicial
-            display.clear()
+        if event_occurred:
+            if event_value == "T":
+                estado = CONFIGURANDO
+                tiempo_inicial = 20
+                tiempo_actual = tiempo_inicial
+                display.clear()
+        event_occurred = False
 
           # Capturar secuencia de desactivación
         if event_occurred:
