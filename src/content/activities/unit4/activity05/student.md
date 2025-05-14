@@ -196,5 +196,6 @@ while True:
     uart.write(data)
     sleep(100) # Envia datos a 10 Hz
 ```
+https://editor.p5js.org/valeria804/sketches/n1Qzzvekm 
 
-codigo de la aplicacion modificada: 
+![20250514_162745](https://github.com/user-attachments/assets/eac5d0e9-e9a0-4df3-927d-3c20e04f1c15) 
