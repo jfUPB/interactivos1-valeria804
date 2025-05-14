@@ -62,3 +62,6 @@
   ```
 
 - Capturas de pantalla de los algunos dibujos que hayas hecho con el sketch.
+
+![20250514_165548](https://github.com/user-attachments/assets/4a609821-fce3-4c84-bb7b-ecae7b206a27) 
+
