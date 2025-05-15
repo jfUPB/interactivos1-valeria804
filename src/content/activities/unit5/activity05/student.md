@@ -1,3 +1,10 @@
+| | formato ASCII |formato binario | justificacion |
+| --- | --- | --- | --- |
+| eficiencia | baja |alta | en ASCII se requieren mas bytes para representar un mismo valor, mientras que en binario en uno o dos bytes cada uno, dependiendo como se desarrolle. serial.read() lee directamente los bytes, serial.readLine() lee los textos pero para eso necesita .split(',') y int() |
+| velocidad | lento |rapido | en ASCII al enviar mas bytes, el procesamiento necesita mas tiempo, a demas deben convertirse de textos a numeros, y los separa let values = inString.trim().split(',');. mientras que el binario se transmite menos informacion para los mismos datos, serial.read() solo recibe los bytes directos y son solo 8 bytes |
+| facilidad | mas facil | compleja | el formato ASCII usa un texto legible, lo cual facilita su analisis, por lo tanto es mas facil de implementar y depurar. el binario requiere trabajar con buffers, marcas de inicio y conversion manual de bytes, esto puede ser complicado para alguien que no tiene mucha experiencia en programacion; se necesita comprobar los marcadores de inicio y final manualmente, y convertir manualmente los bytes a valores  |
+| uso de recursos | mayor | menor | en ASCII se necesita un procesamiento de texto y separacion de cadenas, serial.readLine(), trim(), split(',') y int(). el binario es mucho mas directo ya que el serial.read() solo lee un byte a la vez, buffer.push(b) guarda los bytes crudos sin convertir |
+
 - ¿Por qué fue necesario introducir framing en el protocolo binario?
 
   porque a diferencia del formato de texto donde los datos tienen una forma de separarse. en un flujo binario no hay una separacion
