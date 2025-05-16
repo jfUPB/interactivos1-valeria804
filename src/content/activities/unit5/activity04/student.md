@@ -258,3 +258,6 @@ while True:
 ```
 en lace al codigo modificado: https://editor.p5js.org/valeria804/sketches/F7i72IMZz 
 
+![20250516_162936](https://github.com/user-attachments/assets/4eff77a5-cc96-42c5-954e-b447044c0050) 
+
+
